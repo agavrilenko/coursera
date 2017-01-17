@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="algorithms1" />
         <module name="common" />
+        <module name="part2-week1" />
         <module name="week1" />
         <module name="week2" />
         <module name="week3" />
@@ -17,8 +18,10 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="algorithms1" target="1.5" />
+      <module name="algorithms2" target="1.5" />
       <module name="common" target="1.8" />
       <module name="coursera" target="1.5" />
+      <module name="part2-week1" target="1.8" />
       <module name="week1" target="1.5" />
       <module name="week2" target="1.8" />
       <module name="week3" target="1.8" />
