@@ -1,5 +1,5 @@
 0,a,one
-1,b,two
+1,b r,two
 2,c,three
 3,d,four
 4,e,five
@@ -10,6 +10,6 @@
 9,j,ten
 10,k,eleven
 11,l,twelve
-12,m,thirteen
+12,m p,thirteen
 13,n,fourteen
 14,o,fifteen
