@@ -20,6 +20,7 @@ public class WordNetTest {
         assertEquals("b r", net.sap("i", "m"));
         assertEquals(5, net.distance("i", "p"));
         assertEquals("b r", net.sap("i", "p"));
+        assertEquals(0, net.distance("i", "i"));
     }
 
     @Test
