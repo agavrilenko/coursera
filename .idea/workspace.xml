@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2019e2c4-e26f-4e53-8921-6fe7cb93692a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/algorithms2/part2-week1/src/test/resources/input/hypernyms15Cycle.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java" afterPath="$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms2/part2-week1/src/test/java/WordNetTest.java" afterPath="$PROJECT_DIR$/algorithms2/part2-week1/src/test/java/WordNetTest.java" />
     </list>
     <ignored path="coursera.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,18 +42,18 @@
       <file leaf-file-name="WordNet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+            <state relative-caret-position="505">
+              <caret line="38" column="22" lean-forward="false" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2223#2224#0" expanded="true" />
-                <element signature="e#2262#2263#0" expanded="true" />
-                <element signature="e#2339#2340#0" expanded="true" />
-                <element signature="e#2387#2388#0" expanded="true" />
-                <element signature="e#5270#5271#0" expanded="true" />
-                <element signature="e#5314#5315#0" expanded="true" />
-                <element signature="e#5622#5623#0" expanded="true" />
-                <element signature="e#5658#5659#0" expanded="true" />
+                <element signature="e#2227#2228#0" expanded="true" />
+                <element signature="e#2266#2267#0" expanded="true" />
+                <element signature="e#2343#2344#0" expanded="true" />
+                <element signature="e#2391#2392#0" expanded="true" />
+                <element signature="e#5274#5275#0" expanded="true" />
+                <element signature="e#5318#5319#0" expanded="true" />
+                <element signature="e#5626#5627#0" expanded="true" />
+                <element signature="e#5662#5663#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1087,13 +1085,17 @@
       <option name="project" value="LOCAL" />
       <updated>1484888808656</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="One word could be in several synsets">
+      <created>1484914134953</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1484914134953</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WordNetTest - 2017.01.19 at 23h 35m 17s.xml">
-      <configuration name="WordNetTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="WordNetTest - 2017.01.19 at 23h 36m 28s.xml">
       <configuration name="WordNetTest" configurationId="JUnit" />
     </history-entry>
@@ -1113,6 +1115,9 @@
       <configuration name="WordNetTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="WordNetTest - 2017.01.20 at 07h 08m 07s.xml">
+      <configuration name="WordNetTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="WordNetTest - 2017.01.20 at 16h 59m 47s.xml">
       <configuration name="WordNetTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="WordNetTest_testWordNet_Cycle - 2017.01.20 at 07h 00m 39s.xml">
@@ -1181,7 +1186,8 @@
     <MESSAGE value="Added length and ancestor" />
     <MESSAGE value="SAP improvements" />
     <MESSAGE value="Implemented wordnet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented wordnet" />
+    <MESSAGE value="One word could be in several synsets" />
+    <option name="LAST_COMMIT_MESSAGE" value="One word could be in several synsets" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1704,18 +1710,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="11" column="30" lean-forward="false" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        <state relative-caret-position="505">
+          <caret line="38" column="22" lean-forward="false" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2223#2224#0" expanded="true" />
-            <element signature="e#2262#2263#0" expanded="true" />
-            <element signature="e#2339#2340#0" expanded="true" />
-            <element signature="e#2387#2388#0" expanded="true" />
-            <element signature="e#5270#5271#0" expanded="true" />
-            <element signature="e#5314#5315#0" expanded="true" />
-            <element signature="e#5622#5623#0" expanded="true" />
-            <element signature="e#5658#5659#0" expanded="true" />
+            <element signature="e#2227#2228#0" expanded="true" />
+            <element signature="e#2266#2267#0" expanded="true" />
+            <element signature="e#2343#2344#0" expanded="true" />
+            <element signature="e#2391#2392#0" expanded="true" />
+            <element signature="e#5274#5275#0" expanded="true" />
+            <element signature="e#5318#5319#0" expanded="true" />
+            <element signature="e#5626#5627#0" expanded="true" />
+            <element signature="e#5662#5663#0" expanded="true" />
           </folding>
         </state>
       </provider>

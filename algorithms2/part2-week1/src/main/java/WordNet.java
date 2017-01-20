@@ -9,7 +9,7 @@ import java.util.*;
 public class WordNet {
 
     //    private ArrayList<List<String>> synsets = new ArrayList<>();
-    private ArrayList<String> defintions = new ArrayList<>();
+//    private ArrayList<String> defintions = new ArrayList<>();
     private SAP sap;
     private Map<String, List<Integer>> synsets = new HashMap<>();
     private ArrayList<String> source = new ArrayList<>();
@@ -33,7 +33,7 @@ public class WordNet {
                 }
                 indexes.add(index);
             }
-            defintions.add(index, parts[2]);
+//            defintions.add(index, parts[2]);
             source.add(index, parts[1]);
         }
         Digraph g = new Digraph(synsets.size());
