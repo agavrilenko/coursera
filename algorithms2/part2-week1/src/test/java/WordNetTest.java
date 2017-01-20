@@ -35,4 +35,9 @@ public class WordNetTest {
         assertEquals("o", net.sap("i", "o"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testWordNet_Cycle() {
+        new WordNet("input/synsets15.txt", "input/hypernyms15Cycle.txt");
+    }
+
 }
