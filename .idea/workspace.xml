@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2019e2c4-e26f-4e53-8921-6fe7cb93692a" name="Default" comment="">
+    <list default="true" id="2019e2c4-e26f-4e53-8921-6fe7cb93692a" name="Default" comment="updated ignore file">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/SAP.java" afterPath="$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/SAP.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java" afterPath="$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms2/part2-week1/src/test/java/SAPTest.java" afterPath="$PROJECT_DIR$/algorithms2/part2-week1/src/test/java/SAPTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/algorithms2/part2-week1/src/test/java/WordNetTest.java" afterPath="$PROJECT_DIR$/algorithms2/part2-week1/src/test/java/WordNetTest.java" />
     </list>
     <ignored path="coursera.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +42,8 @@
       <file leaf-file-name="WordNet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="166" column="87" lean-forward="false" selection-start-line="166" selection-start-column="87" selection-end-line="166" selection-end-column="87" />
+            <state relative-caret-position="675">
+              <caret line="194" column="0" lean-forward="true" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2400#2401#0" expanded="true" />
@@ -1104,7 +1101,21 @@
       <option name="project" value="LOCAL" />
       <updated>1484955768753</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added functionality for edge cases">
+      <created>1484961845520</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1484961845520</updated>
+    </task>
+    <task id="LOCAL-00010" summary="updated ignore file">
+      <created>1484963321734</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1484963321734</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1203,7 +1214,9 @@
     <MESSAGE value="Removed definitions store" />
     <MESSAGE value="Added outcast implementation" />
     <MESSAGE value="Tests for outcast" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tests for outcast" />
+    <MESSAGE value="Added functionality for edge cases" />
+    <MESSAGE value="updated ignore file" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated ignore file" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1722,8 +1735,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/algorithms2/part2-week1/src/main/java/WordNet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="166" column="87" lean-forward="false" selection-start-line="166" selection-start-column="87" selection-end-line="166" selection-end-column="87" />
+        <state relative-caret-position="675">
+          <caret line="194" column="0" lean-forward="true" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2400#2401#0" expanded="true" />
