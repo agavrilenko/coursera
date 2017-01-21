@@ -36,6 +36,27 @@ public class WordNetTest {
         assertEquals("o", net.sap("i", "o"));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testWordNet_CornerCase_NullPointer_Dist() {
+        WordNet net = new WordNet("input/synsets15.txt", "input/hypernyms15Path.txt");
+        assertEquals(1, net.distance("d", null));
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWordNet_CornerCase_NullPointer_IsNoun() {
+        WordNet net = new WordNet("input/synsets15.txt", "input/hypernyms15Path.txt");
+        assertEquals(1, net.isNoun(null));
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testWordNet_CornerCase_NullPointer_SAP() {
+        WordNet net = new WordNet("input/synsets15.txt", "input/hypernyms15Path.txt");
+        assertEquals("e", net.sap("d", null));
+
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testWordNet_Cycle() {
         new WordNet("input/synsets15.txt", "input/hypernyms15Cycle.txt");

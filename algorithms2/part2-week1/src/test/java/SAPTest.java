@@ -26,6 +26,16 @@ public class SAPTest {
         assertEquals(3, sap.length(3, 0));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testSimpleLength_CycleTest() {
+        Digraph g = new Digraph(4);
+        g.addEdge(0, 1);
+        g.addEdge(1, 2);
+        g.addEdge(2, 3);
+        g.addEdge(3, 0);
+        SAP sap = new SAP(g);
+    }
+
     @Test(expected = NullPointerException.class)
     public void testCornerCases_NullArgument() {
         Digraph g = new Digraph(4);

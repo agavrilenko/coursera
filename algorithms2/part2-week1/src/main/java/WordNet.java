@@ -1,7 +1,13 @@
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Stack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Created by trash on 16-Jan-17.
@@ -16,14 +22,14 @@ public class WordNet {
 
     // constructor takes the name of the two input files
     public WordNet(String synsFile, String hypsFile) {
-        In synFile = new In(new Scanner(WordNet.class.getClassLoader().getResourceAsStream(synsFile)));
-        In hypFile = new In(new Scanner(WordNet.class.getClassLoader().getResourceAsStream(hypsFile)));
+        In synFile = new In(new Scanner(WordNet.class.getClassLoader().getResourceAsStream(synsFile), "UTF-8"));
+        In hypFile = new In(new Scanner(WordNet.class.getClassLoader().getResourceAsStream(hypsFile), "UTF-8"));
         // read synsets and store it in collection
 
         while (synFile.hasNextLine()) {
             String line = synFile.readLine();
             String[] parts = line.split(",");
-            Integer index = Integer.valueOf(parts[0]);
+            int index = Integer.valueOf(parts[0]);
             List<String> synset = Arrays.asList(parts[1].split(" "));
             for (String key : synset) {
                 List<Integer> indexes = synsets.get(key);
@@ -42,9 +48,9 @@ public class WordNet {
         while (hypFile.hasNextLine()) {
             String nodes = hypFile.readLine();
             String[] hypernyms = nodes.split(",");
-            Integer child = Integer.valueOf(hypernyms[0]);
+            int child = Integer.valueOf(hypernyms[0]);
             for (int i = 1; i < hypernyms.length; i++) {
-                Integer parent = Integer.valueOf(hypernyms[i]);
+                int parent = Integer.valueOf(hypernyms[i]);
                 g.addEdge(child, parent);
             }
         }
@@ -62,11 +68,17 @@ public class WordNet {
 
     // is the word a WordNet noun?
     public boolean isNoun(String word) {
+        if (word == null) {
+            throw new NullPointerException();
+        }
         return synsets.containsKey(word);
     }
 
     // distance between nounA and nounB (defined below)
     public int distance(String nounA, String nounB) {
+        if (nounA == null || nounB == null) {
+            throw new NullPointerException();
+        }
         List<Integer> indexA = synsets.get(nounA);
         List<Integer> indexB = synsets.get(nounB);
         if (indexA == null || indexB == null) {
@@ -78,12 +90,15 @@ public class WordNet {
     // a synset (second field of synsets.txt) that is the common ancestor of nounA and nounB
     // in a shortest ancestral path (defined below)
     public String sap(String nounA, String nounB) {
+        if (nounA == null || nounB == null) {
+            throw new NullPointerException();
+        }
         List<Integer> indexA = synsets.get(nounA);
         List<Integer> indexB = synsets.get(nounB);
         if (indexA == null || indexB == null) {
             throw new IllegalArgumentException();
         }
-        Integer ancestor = sap.ancestor(indexA, indexB);
+        int ancestor = sap.ancestor(indexA, indexB);
         return source.get(ancestor);
 
     }
