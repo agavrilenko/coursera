@@ -51,3 +51,13 @@ Temporary Items
 .idea/workspace.xml
 .idea/workspace.xml
 .idea/workspace.xml
+algorithms2/part2-week2/part2-week2.iml
+algorithms2/part2-week1/target/test-classes/WordNetTest.class
+algorithms2/part2-week1/target/classes/Outcast.class
+algorithms2/part2-week1/target/classes/SAP$DirectedCycle.class
+algorithms2/part2-week1/target/classes/SAP.class
+algorithms2/part2-week1/target/classes/WordNet$DirectedCycle.class
+/algorithms1/algorithms1.iml
+/.idea
+/algorithms2/*.iml
+/algorithms2/part2-week1/target
