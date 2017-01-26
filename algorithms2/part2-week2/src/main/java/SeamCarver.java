@@ -15,6 +15,8 @@ public class SeamCarver {
     private Queue<Integer> preorder = new LinkedList<>();
     private boolean[] marked;
     private int[] verts;
+//    private double[] distTo;
+//    private int[] edgeTo;
 
     // create a seam carver object based on the given picture
     public SeamCarver(Picture picture) {
@@ -78,10 +80,8 @@ public class SeamCarver {
         return null;
     }
 
-    Queue<Integer> buildVTopology(int v) {
-        Queue<Integer> postorder = new LinkedList<>();
-        postorder = new LinkedList<>();
-        preorder = new LinkedList<>();
+    LinkedList<Integer> buildVTopology(int v) {
+        LinkedList<Integer> postorder = new LinkedList<>();
         marked = new boolean[width() * height()];
         dfs(postorder, v);
         return postorder;
@@ -90,6 +90,16 @@ public class SeamCarver {
     private void dfs(Queue<Integer> postorder, int v) {
 
         marked[v] = true;
+        int[] next = nextVVertices(v);
+        for (int w : next) {
+            if (!marked[w]) {
+                dfs(postorder, w);
+            }
+        }
+        postorder.add(v);
+    }
+
+    private int[] nextVVertices(int v) {
         int[] next;
         if (v >= (height() - 1) * width()) {
             next = new int[]{};
@@ -100,19 +110,60 @@ public class SeamCarver {
         } else {
             next = new int[]{v + width() - 1, v + width(), v + width() + 1};
         }
+        return next;
+    }
 
-        for (int w : next) {
-            if (!marked[w]) {
-                dfs(postorder, w);
+    private int[] buildSingleVPath(double[] distTo, int[] edgeTo, int v) {
+        int[] path = new int[height()];
+        LinkedList<Integer> topology = buildVTopology(v);
+
+
+        int last = topology.removeLast();
+        double weight;
+        edgeTo[last] = last;
+        distTo[last] = getEnergyByIndex(last);
+        while (topology.size() > 0) {
+            last = topology.removeLast();
+            weight = distTo[last];
+            int[] next = nextVVertices(last);
+            for (int i : next) {
+                double nextWeight = weight + getEnergyByIndex(i);
+                if (distTo[i] > nextWeight) {
+                    distTo[i] = nextWeight;
+                    edgeTo[i] = last;
+                }
             }
+
         }
-        postorder.add(v);
 
+        return path;
+    }
 
+    private double getEnergyByIndex(int last) {
+        int x = last % width();
+        int y = last / height();
+        return energy(x, y);
     }
 
     // sequence of indices for vertical seam
     public int[] findVerticalSeam() {
+        double[] distTo = new double[height() * width()];
+        int[] edgeTo = new int[height() * width()];
+        int[] minVPath = new int[height()];
+        double minEnerge = Double.MAX_VALUE;
+        int minIndex = -1;
+        for (int i = 0; i < distTo.length; i++) {
+            distTo[i] = Double.MAX_VALUE;
+            edgeTo[i] = -1;
+        }
+        for (int i = 0; i < width(); i++) {
+            buildSingleVPath(distTo, edgeTo, i);
+        }
+
+        for (int i = (height() - 1) * width(); i < height() * width(); i++) {
+
+        }
+
         return null;
     }
 
