@@ -9,14 +9,7 @@ import java.util.Queue;
 public class SeamCarver {
     private Picture picture;
     private double[][] energy;
-    private int[] vMin;
-    private int[] hMin;
-
-    private Queue<Integer> preorder = new LinkedList<>();
     private boolean[] marked;
-    private int[] verts;
-//    private double[] distTo;
-//    private int[] edgeTo;
 
     // create a seam carver object based on the given picture
     public SeamCarver(Picture picture) {
@@ -126,7 +119,6 @@ public class SeamCarver {
         return postorder;
     }
 
-
     private void vDfs(Queue<Integer> postorder, int v) {
 
         marked[v] = true;
@@ -150,7 +142,6 @@ public class SeamCarver {
         }
         postorder.add(v);
     }
-
 
     private int[] nextVVertices(int v) {
         int[] next;
@@ -273,7 +264,22 @@ public class SeamCarver {
         if (height() <= 1) {
             throw new IllegalArgumentException();
         }
-
+        double[][] tmpEnergy = new double[width()][height() - 1];
+        Picture tmpPic = new Picture(width(), height() - 1);
+        int yIndex;
+        for (int i = 0; i < width(); i++) {
+            yIndex = 0;
+            for (int j = 0; j < height(); j++) {
+                if (seam[i] == j) {
+                    continue;
+                }
+                tmpEnergy[i][yIndex] = energy[i][j];
+                tmpPic.set(i, yIndex, picture.get(i, j));
+                yIndex++;
+            }
+        }
+        picture = tmpPic;
+        energy = tmpEnergy;
     }
 
     // remove vertical seam from current picture
@@ -284,6 +290,21 @@ public class SeamCarver {
         if (width() <= 1) {
             throw new IllegalArgumentException();
         }
-
+        double[][] tmpEnergy = new double[width() - 1][height()];
+        Picture tmpPic = new Picture(width() - 1, height());
+        int xIndex;
+        for (int j = 0; j < height(); j++) {
+            xIndex = 0;
+            for (int i = 0; i < width(); i++) {
+                if (seam[j] == i) {
+                    continue;
+                }
+                tmpEnergy[xIndex][j] = energy[i][j];
+                tmpPic.set(xIndex, j, picture.get(i, j));
+                xIndex++;
+            }
+        }
+        picture = tmpPic;
+        energy = tmpEnergy;
     }
 }
