@@ -80,27 +80,77 @@ public class SeamCarver {
 
     // sequence of indices for horizontal seam
     public int[] findHorizontalSeam() {
-        return null;
+        double[] distTo = new double[height() * width()];
+        int[] edgeTo = new int[height() * width()];
+        double minEnergy = Double.MAX_VALUE;
+        int minIndex = -1;
+        int[] minVPath = new int[width()];
+
+        for (int i = 0; i < width() * height() - 1; i += width()) {
+            boolean changed = false;
+            for (int j = 0; j < distTo.length; j++) {
+                distTo[j] = Double.MAX_VALUE;
+                edgeTo[j] = -1;
+            }
+            buildSingleHPath(distTo, edgeTo, i);
+            for (int j = width() - 1; j < (height() * width()); j += width()) {
+                if (distTo[j] < minEnergy) {
+                    changed = true;
+                    minEnergy = distTo[j];
+                    minIndex = j;
+
+                }
+            }
+            if (changed) {
+                for (int j = width() - 1; j >= 0; j--) {
+                    minVPath[j] = minIndex / width();
+                    minIndex = edgeTo[minIndex];
+                }
+            }
+        }
+
+        return minVPath;
     }
 
     LinkedList<Integer> buildVTopology(int v) {
         LinkedList<Integer> postorder = new LinkedList<>();
         marked = new boolean[width() * height()];
-        dfs(postorder, v);
+        vDfs(postorder, v);
         return postorder;
     }
 
-    private void dfs(Queue<Integer> postorder, int v) {
+    LinkedList<Integer> buildHTopology(int v) {
+        LinkedList<Integer> postorder = new LinkedList<>();
+        marked = new boolean[width() * height()];
+        hDfs(postorder, v);
+        return postorder;
+    }
+
+
+    private void vDfs(Queue<Integer> postorder, int v) {
 
         marked[v] = true;
         int[] next = nextVVertices(v);
         for (int w : next) {
             if (!marked[w]) {
-                dfs(postorder, w);
+                vDfs(postorder, w);
             }
         }
         postorder.add(v);
     }
+
+    private void hDfs(Queue<Integer> postorder, int v) {
+
+        marked[v] = true;
+        int[] next = nextHVertices(v);
+        for (int w : next) {
+            if (!marked[w]) {
+                hDfs(postorder, w);
+            }
+        }
+        postorder.add(v);
+    }
+
 
     private int[] nextVVertices(int v) {
         int[] next;
@@ -112,6 +162,20 @@ public class SeamCarver {
             next = new int[]{v + width() - 1, v + width()};
         } else {
             next = new int[]{v + width() - 1, v + width(), v + width() + 1};
+        }
+        return next;
+    }
+
+    private int[] nextHVertices(int v) {
+        int[] next;
+        if ((v + 1) % width() == 0) {
+            next = new int[]{};
+        } else if (v < width()) {
+            next = new int[]{v + 1, v + width() + 1};
+        } else if (v >= (height() - 1) * width()) { //
+            next = new int[]{v - width() + 1, v + 1};
+        } else {
+            next = new int[]{v - width() + 1, v + 1, v + width() + 1};
         }
         return next;
     }
@@ -137,6 +201,29 @@ public class SeamCarver {
             last = topology.removeLast();
         }
     }
+
+    private void buildSingleHPath(double[] distTo, int[] edgeTo, int v) {
+        LinkedList<Integer> topology = buildHTopology(v);
+        int last = topology.removeLast();
+        double weight;
+        edgeTo[last] = last;
+        distTo[last] = getEnergyByIndex(last);
+        double nextWeight;
+        int[] next;
+        while (topology.size() > 0) {
+            weight = distTo[last];
+            next = nextHVertices(last);
+            for (int i : next) {
+                nextWeight = weight + getEnergyByIndex(i);
+                if (distTo[i] > nextWeight) {
+                    distTo[i] = nextWeight;
+                    edgeTo[i] = last;
+                }
+            }
+            last = topology.removeLast();
+        }
+    }
+
 
     private double getEnergyByIndex(int last) {
         int x = last % width();
@@ -198,16 +285,5 @@ public class SeamCarver {
             throw new IllegalArgumentException();
         }
 
-    }
-
-    private static class Vertex {
-        private int x;
-
-        public Vertex(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        private int y;
     }
 }

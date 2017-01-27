@@ -70,6 +70,15 @@ public class SeamCarverTest {
     }
 
     @Test
+    public void testEnerge_HorizontalSeam_3x4() {
+        carver = new SeamCarver(new Picture(PATH + "3x4.png"));
+        int[] expeted = new int[]{1, 2, 1};
+        int[] actual = carver.findHorizontalSeam();
+        assertArrayEquals(expeted, actual);
+
+    }
+
+    @Test
     public void testEnerge_VerticalSeam_6x5() {
         carver = new SeamCarver(new Picture(PATH + "6x5.png"));
         int[] expeted = new int[]{3, 4, 3, 2, 1};
@@ -81,9 +90,9 @@ public class SeamCarverTest {
     @Test
     public void testEnerge_HorizontalSeam() {
         carver = new SeamCarver(new Picture(PATH + "6x5.png"));
-        int[] expeted = new int[]{2, 2, 1, 2, 1, 2};
+        int[] expeted = new int[]{1, 2, 1, 2, 1, 0};
         int[] actual = carver.findHorizontalSeam();
-        assertEquals(expeted, actual);
+        assertArrayEquals(expeted, actual);
     }
 
     @Test
