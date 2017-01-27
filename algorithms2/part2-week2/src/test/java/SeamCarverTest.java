@@ -6,8 +6,11 @@ import org.junit.Test;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Queue;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -58,21 +61,28 @@ public class SeamCarverTest {
     }
 
     @Test
-    public void testEnerge_VerticalSeam() {
+    public void testEnerge_VerticalSeam_3x4() {
+        carver = new SeamCarver(new Picture(PATH + "3x4.png"));
+        int[] expeted = new int[]{0, 1, 1, 0};
+        int[] actual = carver.findVerticalSeam();
+        assertArrayEquals(expeted, actual);
+
+    }
+
+    @Test
+    public void testEnerge_VerticalSeam_6x5() {
         carver = new SeamCarver(new Picture(PATH + "6x5.png"));
-        int[] actual = new int[]{};
-        int[] expeted = new int[]{3, 4, 3, 2, 2};
-        carver.removeVerticalSeam(actual);
-        assertEquals(expeted, actual);
+        int[] expeted = new int[]{3, 4, 3, 2, 1};
+        int[] actual = carver.findVerticalSeam();
+        assertArrayEquals(expeted, actual);
 
     }
 
     @Test
     public void testEnerge_HorizontalSeam() {
         carver = new SeamCarver(new Picture(PATH + "6x5.png"));
-        int[] actual = new int[]{};
         int[] expeted = new int[]{2, 2, 1, 2, 1, 2};
-        carver.removeHorizontalSeam(actual);
+        int[] actual = carver.findHorizontalSeam();
         assertEquals(expeted, actual);
     }
 
@@ -105,28 +115,11 @@ public class SeamCarverTest {
     @Test
     public void testTopologicalOrder_6x5() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         carver = new SeamCarver(new Picture(PATH + "6x5.png"));
-        Method buildHTopology = SeamCarver.class.getDeclaredMethod("buildVTopology", int.class);
-        Object result = buildHTopology.invoke(carver, 2);
-        Assert.assertTrue(result instanceof Queue);
-        Queue<Integer> queue = (Queue<Integer>) result;
-        assertEquals(21, queue.size());
-        System.out.println(result.toString());
-        for (int j = 0; j < carver.height(); j++) {
-            for (int i = 0; i < carver.width(); i++) {
-                int index = carver.width() * j + i;
-                if (queue.contains(index)) {
-                    System.out.print(index);
-                } else {
-                    if (index < 12) {
-                        System.out.print("_|");
-                    } else {
-                        System.out.print("_");
+        LinkedList<Integer> queue = carver.buildVTopology(2);
+        LinkedList<Integer> expected = new LinkedList<>();
+        expected.addAll(Arrays.asList(24, 25, 18, 26, 19, 12, 27, 20, 13, 28, 21, 14, 7, 29, 22, 15, 8, 23, 16, 9, 2));
+        assertArrayEquals(expected.toArray(), queue.toArray());
 
-                    }
-                }
-            }
-            System.out.println();
-        }
 
     }
 }

@@ -52,6 +52,9 @@ public class SeamCarver {
         if (height() <= y || width() <= x) {
             throw new IndexOutOfBoundsException();
         }
+        if (energy[x][y] != 0) {
+            return energy[x][y];
+        }
 
         if (x == 0 || y == 0 || x == width() - 1 || y == height() - 1) {
             return 1000;
@@ -113,35 +116,31 @@ public class SeamCarver {
         return next;
     }
 
-    private int[] buildSingleVPath(double[] distTo, int[] edgeTo, int v) {
-        int[] path = new int[height()];
+    private void buildSingleVPath(double[] distTo, int[] edgeTo, int v) {
         LinkedList<Integer> topology = buildVTopology(v);
-
-
         int last = topology.removeLast();
         double weight;
         edgeTo[last] = last;
         distTo[last] = getEnergyByIndex(last);
+        double nextWeight;
+        int[] next;
         while (topology.size() > 0) {
-            last = topology.removeLast();
             weight = distTo[last];
-            int[] next = nextVVertices(last);
+            next = nextVVertices(last);
             for (int i : next) {
-                double nextWeight = weight + getEnergyByIndex(i);
+                nextWeight = weight + getEnergyByIndex(i);
                 if (distTo[i] > nextWeight) {
                     distTo[i] = nextWeight;
                     edgeTo[i] = last;
                 }
             }
-
+            last = topology.removeLast();
         }
-
-        return path;
     }
 
     private double getEnergyByIndex(int last) {
         int x = last % width();
-        int y = last / height();
+        int y = last / width();
         return energy(x, y);
     }
 
@@ -149,22 +148,34 @@ public class SeamCarver {
     public int[] findVerticalSeam() {
         double[] distTo = new double[height() * width()];
         int[] edgeTo = new int[height() * width()];
-        int[] minVPath = new int[height()];
-        double minEnerge = Double.MAX_VALUE;
+        double minEnergy = Double.MAX_VALUE;
         int minIndex = -1;
-        for (int i = 0; i < distTo.length; i++) {
-            distTo[i] = Double.MAX_VALUE;
-            edgeTo[i] = -1;
-        }
+        int[] minVPath = new int[height()];
+
         for (int i = 0; i < width(); i++) {
+            boolean changed = false;
+            for (int j = 0; j < distTo.length; j++) {
+                distTo[j] = Double.MAX_VALUE;
+                edgeTo[j] = -1;
+            }
             buildSingleVPath(distTo, edgeTo, i);
+            for (int j = (height() - 1) * width(); j < height() * width(); j++) {
+                if (distTo[j] < minEnergy) {
+                    changed = true;
+                    minEnergy = distTo[j];
+                    minIndex = j;
+
+                }
+            }
+            if (changed) {
+                for (int j = height() - 1; j >= 0; j--) {
+                    minVPath[j] = minIndex % width();
+                    minIndex = edgeTo[minIndex];
+                }
+            }
         }
 
-        for (int i = (height() - 1) * width(); i < height() * width(); i++) {
-
-        }
-
-        return null;
+        return minVPath;
     }
 
     // remove horizontal seam from current picture
