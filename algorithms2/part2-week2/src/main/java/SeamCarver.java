@@ -27,7 +27,7 @@ public class SeamCarver {
 
     // current picture
     public Picture picture() {
-        return picture;
+        return new Picture(picture);
     }
 
     // width of current picture
@@ -105,14 +105,15 @@ public class SeamCarver {
         return minVPath;
     }
 
-    LinkedList<Integer> buildVTopology(int v) {
+    // postorder could be built just by adding next vertices without dfs
+    private LinkedList<Integer> buildVTopology(int v) {
         LinkedList<Integer> postorder = new LinkedList<>();
         marked = new boolean[width() * height()];
         vDfs(postorder, v);
         return postorder;
     }
 
-    LinkedList<Integer> buildHTopology(int v) {
+    private LinkedList<Integer> buildHTopology(int v) {
         LinkedList<Integer> postorder = new LinkedList<>();
         marked = new boolean[width() * height()];
         hDfs(postorder, v);
@@ -144,31 +145,31 @@ public class SeamCarver {
     }
 
     private int[] nextVVertices(int v) {
-        int[] next;
-        if (v >= (height() - 1) * width()) {
-            next = new int[]{};
+        if (width() == 1 && v < height() - 1) {
+            return new int[]{v + 1};
+        } else if (v >= (height() - 1) * width()) {
+            return new int[]{};
         } else if (v % width() == 0) {
-            next = new int[]{v + width(), v + width() + 1};
+            return new int[]{v + width(), v + width() + 1};
         } else if ((v + 1) % width() == 0) {
-            next = new int[]{v + width() - 1, v + width()};
+            return new int[]{v + width() - 1, v + width()};
         } else {
-            next = new int[]{v + width() - 1, v + width(), v + width() + 1};
+            return new int[]{v + width() - 1, v + width(), v + width() + 1};
         }
-        return next;
     }
 
     private int[] nextHVertices(int v) {
-        int[] next;
-        if ((v + 1) % width() == 0) {
-            next = new int[]{};
+        if (height() == 1 && v < width() - 1) {
+            return new int[]{v + 1};
+        } else if ((v + 1) % width() == 0) {
+            return new int[]{};
         } else if (v < width()) {
-            next = new int[]{v + 1, v + width() + 1};
-        } else if (v >= (height() - 1) * width()) { //
-            next = new int[]{v - width() + 1, v + 1};
+            return new int[]{v + 1, v + width() + 1};
+        } else if (v >= (height() - 1) * width()) {
+            return new int[]{v - width() + 1, v + 1};
         } else {
-            next = new int[]{v - width() + 1, v + 1, v + width() + 1};
+            return new int[]{v - width() + 1, v + 1, v + width() + 1};
         }
-        return next;
     }
 
     private void buildSingleVPath(double[] distTo, int[] edgeTo, int v) {
@@ -261,9 +262,23 @@ public class SeamCarver {
         if (seam == null) {
             throw new NullPointerException();
         }
-        if (height() <= 1) {
+        if (height() <= 1 || seam.length != width()) {
             throw new IllegalArgumentException();
         }
+
+        int prev = seam[0];
+        for (int i = 0; i < seam.length; i++) {
+            int abs = prev > seam[i] ? prev - seam[i] : seam[i] - prev;
+            if (abs > 1) {
+                throw new IllegalArgumentException("on i = " + i);
+            }
+            if (seam[i] < 0 || seam[i] > height() - 1) {
+                throw new IllegalArgumentException("on i = " + i);
+            }
+            prev = seam[i];
+        }
+
+
         double[][] tmpEnergy = new double[width()][height() - 1];
         Picture tmpPic = new Picture(width(), height() - 1);
         int yIndex;
@@ -287,9 +302,22 @@ public class SeamCarver {
         if (seam == null) {
             throw new NullPointerException();
         }
-        if (width() <= 1) {
+        if (width() <= 1 || seam.length != height()) {
             throw new IllegalArgumentException();
         }
+
+        int prev = seam[0];
+        for (int i = 0; i < seam.length; i++) {
+            int abs = prev > seam[i] ? prev - seam[i] : seam[i] - prev;
+            if (abs > 1) {
+                throw new IllegalArgumentException("on i = " + i);
+            }
+            if (seam[i] < 0 || seam[i] > width() - 1) {
+                throw new IllegalArgumentException("on i = " + i);
+            }
+            prev = seam[i];
+        }
+
         double[][] tmpEnergy = new double[width() - 1][height()];
         Picture tmpPic = new Picture(width() - 1, height());
         int xIndex;

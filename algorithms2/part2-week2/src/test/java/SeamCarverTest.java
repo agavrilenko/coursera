@@ -119,6 +119,58 @@ public class SeamCarverTest {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testSeam_12x10_invalidVSeam() {
+        carver = new SeamCarver(new Picture(PATH + "12x10.png"));
+        int[] expeted = new int[]{3, 4, 2, 3, 4, 4, 4, 5, 4, 5};
+        carver.removeVerticalSeam(expeted);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSeam_12x10_invalidVSeamLength() {
+        carver = new SeamCarver(new Picture(PATH + "12x10.png"));
+        int[] expeted = new int[]{1, 2, 3, 2, 3, 2, 2, 1};
+        carver.removeVerticalSeam(expeted);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSeam_12x10_invalidHSeam() {
+        carver = new SeamCarver(new Picture(PATH + "12x10.png"));
+        int[] expeted = new int[]{4, 2, 1, 2, 1, 1, 2, 1, 2, 2, 4, 5};
+        carver.removeHorizontalSeam(expeted);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSeam_12x10_invalidHSeamLength() {
+        carver = new SeamCarver(new Picture(PATH + "12x10.png"));
+        int[] expeted = new int[]{3, 2, 2, 2, 1, 0, 0, 0, 1, 0};
+        carver.removeHorizontalSeam(expeted);
+    }
+
+    @Test
+    public void testSeam_1x8() {
+        carver = new SeamCarver(new Picture(PATH + "1x8.png"));
+        int[] expeted = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+        int[] actual = carver.findVerticalSeam();
+        assertArrayEquals(expeted, actual);
+        expeted = new int[]{0};
+        actual = carver.findHorizontalSeam();
+        assertArrayEquals(expeted, actual);
+
+    }
+
+    @Test
+    public void testSeam_8x1() {
+        carver = new SeamCarver(new Picture(PATH + "8x1.png"));
+        int[] expeted = new int[]{0};
+        int[] actual = carver.findVerticalSeam();
+        assertArrayEquals(expeted, actual);
+        expeted = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+        actual = carver.findHorizontalSeam();
+        assertArrayEquals(expeted, actual);
+
+    }
+
     @Test
     public void testEnerge_HorizontalSeam_3x4() {
         carver = new SeamCarver(new Picture(PATH + "3x4.png"));
@@ -166,6 +218,7 @@ public class SeamCarverTest {
     public void testTopologicalOrder_3x4() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         carver = new SeamCarver(new Picture(PATH + "3x4.png"));
         Method buildHTopology = SeamCarver.class.getDeclaredMethod("buildVTopology", int.class);
+        buildHTopology.setAccessible(true);
         Object result = buildHTopology.invoke(carver, 1);
         Assert.assertTrue(result instanceof Queue);
         assertEquals(10, ((Queue<Integer>) result).size());
@@ -174,7 +227,12 @@ public class SeamCarverTest {
     @Test
     public void testTopologicalOrder_6x5() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         carver = new SeamCarver(new Picture(PATH + "6x5.png"));
-        LinkedList<Integer> queue = carver.buildVTopology(2);
+        Method buildHTopology = SeamCarver.class.getDeclaredMethod("buildVTopology", int.class);
+        buildHTopology.setAccessible(true);
+        Object result = buildHTopology.invoke(carver, 2);
+//        LinkedList<Integer> queue = carver.buildVTopology(2);
+        Assert.assertTrue(result instanceof Queue);
+        Queue<Integer> queue = (Queue<Integer>) result;
         LinkedList<Integer> expected = new LinkedList<>();
         expected.addAll(Arrays.asList(24, 25, 18, 26, 19, 12, 27, 20, 13, 28, 21, 14, 7, 29, 22, 15, 8, 23, 16, 9, 2));
         assertArrayEquals(expected.toArray(), queue.toArray());
