@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.Picture;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -78,7 +79,7 @@ public class SeamCarver {
     // sequence of indices for horizontal seam
     public int[] findHorizontalSeam() {
         if (hSeamCache != null) {
-            return hSeamCache;
+            return Arrays.copyOf(hSeamCache, hSeamCache.length);
         }
         double[] distTo = new double[height() * width()];
         int[] edgeTo = new int[height() * width()];
@@ -86,7 +87,7 @@ public class SeamCarver {
         int minIndex = -1;
         int[] minVPath = new int[width()];
 
-        for (int i = 0; i < width() * height() - 1; i += width()) {
+        for (int i = 0; i < width() * height() - 1; i += 2 * width()) {
             boolean changed = false;
             for (int j = 0; j < distTo.length; j++) {
                 distTo[j] = Double.MAX_VALUE;
@@ -233,7 +234,7 @@ public class SeamCarver {
     // sequence of indices for vertical seam
     public int[] findVerticalSeam() {
         if (vSeamCache != null) {
-            return vSeamCache;
+            return Arrays.copyOf(vSeamCache, vSeamCache.length);
         }
         double[] distTo = new double[height() * width()];
         int[] edgeTo = new int[height() * width()];
@@ -241,7 +242,7 @@ public class SeamCarver {
         int minIndex = -1;
         int[] minVPath = new int[height()];
 
-        for (int i = 0; i < width(); i++) {
+        for (int i = 0; i < width(); i += 2) {
             boolean changed = false;
             for (int j = 0; j < distTo.length; j++) {
                 distTo[j] = Double.MAX_VALUE;
