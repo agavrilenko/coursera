@@ -10,6 +10,8 @@ public class SeamCarver {
     private Picture picture;
     private double[][] energy;
     private boolean[] marked;
+    private int[] vSeamCache;
+    private int[] hSeamCache;
 
     // create a seam carver object based on the given picture
     public SeamCarver(Picture picture) {
@@ -23,6 +25,8 @@ public class SeamCarver {
                 energy(x, y);
             }
         }
+        vSeamCache = null;
+        hSeamCache = null;
     }
 
     // current picture
@@ -73,6 +77,9 @@ public class SeamCarver {
 
     // sequence of indices for horizontal seam
     public int[] findHorizontalSeam() {
+        if (hSeamCache != null) {
+            return hSeamCache;
+        }
         double[] distTo = new double[height() * width()];
         int[] edgeTo = new int[height() * width()];
         double minEnergy = Double.MAX_VALUE;
@@ -101,7 +108,7 @@ public class SeamCarver {
                 }
             }
         }
-
+        hSeamCache = minVPath;
         return minVPath;
     }
 
@@ -225,6 +232,9 @@ public class SeamCarver {
 
     // sequence of indices for vertical seam
     public int[] findVerticalSeam() {
+        if (vSeamCache != null) {
+            return vSeamCache;
+        }
         double[] distTo = new double[height() * width()];
         int[] edgeTo = new int[height() * width()];
         double minEnergy = Double.MAX_VALUE;
@@ -253,7 +263,7 @@ public class SeamCarver {
                 }
             }
         }
-
+        vSeamCache = minVPath;
         return minVPath;
     }
 
@@ -295,6 +305,8 @@ public class SeamCarver {
         }
         picture = tmpPic;
         energy = tmpEnergy;
+        vSeamCache = null;
+        hSeamCache = null;
     }
 
     // remove vertical seam from current picture
@@ -334,5 +346,7 @@ public class SeamCarver {
         }
         picture = tmpPic;
         energy = tmpEnergy;
+        vSeamCache = null;
+        hSeamCache = null;
     }
 }
