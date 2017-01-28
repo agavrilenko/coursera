@@ -108,6 +108,10 @@ public class SeamCarver {
                     minIndex = edgeTo[minIndex];
                 }
             }
+            if (i == width() * (height() - 3)) {
+                i = width() * (height() - 4);
+            }
+
         }
         hSeamCache = minVPath;
         return minVPath;
@@ -242,7 +246,7 @@ public class SeamCarver {
         int minIndex = -1;
         int[] minVPath = new int[height()];
 
-        for (int i = 0; i < width(); i += 2) {
+        for (int i = 0; i < width(); i += 3) {
             boolean changed = false;
             for (int j = 0; j < distTo.length; j++) {
                 distTo[j] = Double.MAX_VALUE;
@@ -262,6 +266,9 @@ public class SeamCarver {
                     minVPath[j] = minIndex % width();
                     minIndex = edgeTo[minIndex];
                 }
+            }
+            if (i == width() - 3) {
+                i--;
             }
         }
         vSeamCache = minVPath;
