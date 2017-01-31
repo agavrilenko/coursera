@@ -61,3 +61,4 @@ algorithms2/part2-week1/target/classes/WordNet$DirectedCycle.class
 /.idea
 /algorithms2/*.iml
 /algorithms2/part2-week1/target
+*.iml
