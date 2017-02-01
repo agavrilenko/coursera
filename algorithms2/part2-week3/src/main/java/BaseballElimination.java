@@ -22,7 +22,7 @@ public class BaseballElimination {
         r = new int[length];
         g = new int[length][length];
         for (int i = 1; i < data.length; i++) {
-            String[] p = data[i].replaceAll(" +"," ").split(" ");
+            String[] p = data[i].replaceAll(" +", " ").split(" ");
             String name = p[0];
             teams.put(name, i - 1);
             w[i - 1] = Integer.parseInt(p[1]);
@@ -67,6 +67,24 @@ public class BaseballElimination {
 
     // is given team eliminated?
     public boolean isEliminated(String team) {
+        boolean elilminated = checkTrivialCase(team);
+        if(elilminated){
+            return true;
+        }
+
+        return elilminated;
+    }
+
+    private boolean checkTrivialCase(String team) {
+        int teamId = teams.get(team);
+        for (int i = 0; i < numberOfTeams(); i++) {
+            if (i == teamId) {
+                continue;
+            }
+            if (w[teamId] + r[teamId] < w[i]) {
+                return true;
+            }
+        }
         return false;
     }
 
