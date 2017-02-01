@@ -1,15 +1,15 @@
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by trash on 31-Jan-17.
  */
 public class BaseballEliminationTest {
-
+    private final static String PATH = "src/test/resources/";
     public static final String MONTREAL = "Montreal";
 
     @Test
@@ -20,7 +20,7 @@ public class BaseballEliminationTest {
         assertEquals(82, base.losses(MONTREAL));
         assertEquals(77, base.wins(MONTREAL));
         assertEquals(3, base.remaining(MONTREAL));
-        assertEquals(Arrays.asList("Atlanta", "Philadelphia", "New_York", "Montreal"), base.teams());
+        assertArrayEquals(Arrays.asList("Atlanta", "Philadelphia", "New_York", "Montreal").toArray(), ((Set) base.teams()).toArray());
         assertEquals(4, base.numberOfTeams());
         assertTrue(base.isEliminated(MONTREAL));
     }
