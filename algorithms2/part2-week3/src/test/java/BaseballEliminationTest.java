@@ -43,9 +43,11 @@ public class BaseballEliminationTest {
     public void testElimanaion_teams5() {
         BaseballElimination base = new BaseballElimination("teams5.txt");
         assertTrue(base.isEliminated(DETROIT));
+        assertTrue(base.isEliminated(DETROIT));
         assertArrayEquals(((List) base.certificateOfElimination(DETROIT)).toArray(), new String[]{TORONTO, BOSTON, BALTIMORE, NEW_YORK});
         assertFalse(base.isEliminated(NEW_YORK));
         assertFalse(base.isEliminated(BALTIMORE));
+        assertFalse(base.isEliminated(BOSTON));
         assertFalse(base.isEliminated(BOSTON));
         assertFalse(base.isEliminated(TORONTO));
     }
