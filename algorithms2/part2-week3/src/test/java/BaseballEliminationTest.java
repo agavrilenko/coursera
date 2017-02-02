@@ -36,7 +36,56 @@ public class BaseballEliminationTest {
         assertFalse(base.isEliminated(ATLANTA));
         assertFalse(base.isEliminated(NEW_YORK));
         assertArrayEquals(((List) base.certificateOfElimination(MONTREAL)).toArray(), new String[]{ATLANTA});
+        assertEquals(base.certificateOfElimination(ATLANTA), null);
         assertArrayEquals(((List) base.certificateOfElimination(PHILADELPHIA)).toArray(), new String[]{NEW_YORK, ATLANTA});
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testElimanaion_agianst_exception() {
+
+        BaseballElimination base = new BaseballElimination("teams4.txt");
+        assertEquals(1, base.against("P", ATLANTA));
+
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testElimanaion_wins_exception() {
+
+        BaseballElimination base = new BaseballElimination("teams4.txt");
+        assertEquals(1, base.wins("P"));
+
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testElimanaion_loses_exception() {
+
+        BaseballElimination base = new BaseballElimination("teams4.txt");
+        assertEquals(1, base.losses("P"));
+
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testElimanaion_remaining_exception() {
+
+        BaseballElimination base = new BaseballElimination("teams4.txt");
+        assertEquals(1, base.remaining("P"));
+
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testElimanaion_cert_exception() {
+
+        BaseballElimination base = new BaseballElimination("teams4.txt");
+        assertEquals(1, base.certificateOfElimination("P"));
+
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException.class)
+    public void testElimanaion_elim_exception() {
+
+        BaseballElimination base = new BaseballElimination("teams4.txt");
+        assertEquals(1, base.isEliminated("P"));
+
     }
 
     @Test
@@ -56,6 +105,33 @@ public class BaseballEliminationTest {
     public void testElimanaion_teams12() {
         BaseballElimination base = new BaseballElimination("teams12.txt");
         assertTrue(base.isEliminated("Japan"));
+    }
+
+    @Test
+    public void testElimanaion_teams10() {
+        BaseballElimination base = new BaseballElimination("teams10.txt");
+        assertTrue(!base.isEliminated(ATLANTA));
+        assertTrue(base.isEliminated("Houston"));
+        assertTrue(!base.isEliminated("Indiana"));
+    }
+
+    @Test
+    public void testElimanaion_teams29() {
+        BaseballElimination base = new BaseballElimination("teams29.txt");
+        assertTrue(!base.isEliminated("Chicago"));
+        assertTrue(!base.isEliminated(ATLANTA));
+    }
+
+    @Test
+    public void testElimanaion_teams48() {
+        BaseballElimination base = new BaseballElimination("teams48.txt");
+        assertTrue(!base.isEliminated("Team0"));
+    }
+
+    @Test
+    public void testElimanaion_teams5b() {
+        BaseballElimination base = new BaseballElimination("teams5b.txt");
+        assertTrue(!base.isEliminated(TORONTO));
     }
 
 }

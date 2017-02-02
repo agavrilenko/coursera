@@ -25,21 +25,22 @@ public class BaseballElimination {
     // create a baseball division from given filename in format specified below
     public BaseballElimination(String filename) {
         In input = new In(new Scanner(BaseballElimination.class.getClassLoader().getResourceAsStream(filename)));
-        String[] data = input.readAllLines();
-        int length = Integer.valueOf(data[0]).intValue();
+//        String[] data = input.readAllLines();
+        int length = input.readInt();
         w = new int[length];
         l = new int[length];
         r = new int[length];
         g = new int[length][length];
-        for (int i = 1; i < data.length; i++) {
-            String[] p = data[i].replaceAll(" +", " ").split(" ");
-            String name = p[0];
+        for (int i = 1; input.hasNextLine() && !input.isEmpty(); i++) {
+//            String[] p = data[i].replaceAll(" +", " ").split(" ");
+//            In line = new In(data[i]);
+            String name = input.readString();
             teams.put(name, i - 1);
-            w[i - 1] = Integer.parseInt(p[1]);
-            l[i - 1] = Integer.parseInt(p[2]);
-            r[i - 1] = Integer.parseInt(p[3]);
+            w[i - 1] = input.readInt();
+            l[i - 1] = input.readInt();
+            r[i - 1] = input.readInt();
             for (int j = 4; j < 4 + length; j++) {
-                g[i - 1][j - 4] = Integer.parseInt(p[j]);
+                g[i - 1][j - 4] = input.readInt();
             }
 
         }
@@ -57,21 +58,33 @@ public class BaseballElimination {
 
     // number of wins for given team
     public int wins(String team) {
+        if (!teams.containsKey(team)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         return w[teams.get(team)];
     }
 
     // number of losses for given team
     public int losses(String team) {
+        if (!teams.containsKey(team)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         return l[teams.get(team)];
     }
 
     // number of remaining games for given team
     public int remaining(String team) {
+        if (!teams.containsKey(team)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         return r[teams.get(team)];
     }
 
-    // number of remaining games between team1 and team2
+    // number of remaining games between team1 and
     public int against(String team1, String team2) {
+        if (!teams.containsKey(team1) || !teams.containsKey(team2)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         return g[teams.get(team1)][teams.get(team2)];
     }
 
@@ -96,6 +109,9 @@ public class BaseballElimination {
 
     // is given team eliminated?
     public boolean isEliminated(String team) {
+        if (!teams.containsKey(team)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         if (eliminated.get(team) != null) {
             return eliminated.get(team);
         }
@@ -153,8 +169,9 @@ public class BaseballElimination {
         }
         // init t
         teamsInd = 0;
-        for (int i = 0; i < teams.size() - 1; i++) {
+        for (int i = 0; i < teams.size() ; i++) {
             if (i == teamIndex) {
+//                teamsInd++;
                 continue;
             }
             // connect team[i] with t
@@ -184,15 +201,30 @@ public class BaseballElimination {
 
     // subset R of teams that eliminates given team; null if not eliminated
     public Iterable<String> certificateOfElimination(String team) {
+        if (!teams.containsKey(team)) {
+            throw new java.lang.IllegalArgumentException();
+        }
         if (certificates.get(team) != null) {
-            return certificates.get(team);
+            List<String> list = certificates.get(team);
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list;
         }
 
         checkTrivialCase(team);
         if (certificates.get(team) != null) {
-            return certificates.get(team);
+            List<String> list = certificates.get(team);
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list;
         }
         createFordFulkerson(team);
+        List<String> list = certificates.get(team);
+        if (list.isEmpty()) {
+            return null;
+        }
         return certificates.get(team);
     }
 
