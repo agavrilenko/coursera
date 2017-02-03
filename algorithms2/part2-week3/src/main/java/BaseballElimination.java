@@ -24,7 +24,7 @@ public class BaseballElimination {
 
     // create a baseball division from given filename in format specified below
     public BaseballElimination(String filename) {
-        In input = new In(new Scanner(BaseballElimination.class.getClassLoader().getResourceAsStream(filename)));
+        In input = new In(new Scanner(BaseballElimination.class.getClassLoader().getResourceAsStream(filename),"UTF-8"));
 //        String[] data = input.readAllLines();
         int length = input.readInt();
         w = new int[length];
@@ -169,9 +169,9 @@ public class BaseballElimination {
         }
         // init t
         teamsInd = 0;
-        for (int i = 0; i < teams.size() ; i++) {
+        for (int i = 0; i < teams.size(); i++) {
             if (i == teamIndex) {
-//                teamsInd++;
+        // teamsInd++;
                 continue;
             }
             // connect team[i] with t
@@ -270,30 +270,30 @@ public class BaseballElimination {
             return this.marked[v];
         }
 
-        private void validate(int v, int V) {
-            if (v < 0 || v >= V) {
-                throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V - 1));
+        private void validate(int v, int w) {
+            if (v < 0 || v >= w) {
+                throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (w - 1));
             }
         }
 
         private boolean hasAugmentingPath(FlowNetwork G, int s, int t) {
             this.edgeTo = new FlowEdge[G.V()];
             this.marked = new boolean[G.V()];
-            Queue queue = new Queue();
+            Queue<Integer> queue = new Queue<>();
             queue.enqueue(Integer.valueOf(s));
             this.marked[s] = true;
 
             while (!queue.isEmpty() && !this.marked[t]) {
-                int v = ((Integer) queue.dequeue()).intValue();
-                Iterator i$ = G.adj(v).iterator();
+                int v = queue.dequeue();
+                Iterator<FlowEdge> i = G.adj(v).iterator();
 
-                while (i$.hasNext()) {
-                    FlowEdge e = (FlowEdge) i$.next();
+                while (i.hasNext()) {
+                    FlowEdge e = i.next();
                     int w = e.other(v);
                     if (e.residualCapacityTo(w) > 0.0D && !this.marked[w]) {
                         this.edgeTo[w] = e;
                         this.marked[w] = true;
-                        queue.enqueue(Integer.valueOf(w));
+                        queue.enqueue(w);
                     }
                 }
             }
@@ -303,10 +303,10 @@ public class BaseballElimination {
 
         private double excess(FlowNetwork G, int v) {
             double excess = 0.0D;
-            Iterator i$ = G.adj(v).iterator();
+            Iterator<FlowEdge> i$ = G.adj(v).iterator();
 
             while (i$.hasNext()) {
-                FlowEdge e = (FlowEdge) i$.next();
+                FlowEdge e = i$.next();
                 if (v == e.from()) {
                     excess -= e.flow();
                 } else {
@@ -320,10 +320,10 @@ public class BaseballElimination {
         private boolean isFeasible(FlowNetwork G, int s, int t) {
             int v;
             for (v = 0; v < G.V(); ++v) {
-                Iterator i$ = G.adj(v).iterator();
+                Iterator<FlowEdge> i$ = G.adj(v).iterator();
 
                 while (i$.hasNext()) {
-                    FlowEdge e = (FlowEdge) i$.next();
+                    FlowEdge e = i$.next();
                     if (e.flow() < -1.0E-11D || e.flow() > e.capacity() + 1.0E-11D) {
                         System.err.println("Edge does not satisfy capacity constraints: " + e);
                         return false;
@@ -365,10 +365,10 @@ public class BaseballElimination {
                 double mincutValue = 0.0D;
 
                 for (int v = 0; v < G.V(); ++v) {
-                    Iterator i$ = G.adj(v).iterator();
+                    Iterator<FlowEdge> i$ = G.adj(v).iterator();
 
                     while (i$.hasNext()) {
-                        FlowEdge e = (FlowEdge) i$.next();
+                        FlowEdge e = i$.next();
                         if (v == e.from() && this.inCut(e.from()) && !this.inCut(e.to())) {
                             mincutValue += e.capacity();
                         }
