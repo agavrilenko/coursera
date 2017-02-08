@@ -21,7 +21,6 @@ public class BoggleSolverTest {
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
-            System.out.println(word);
         }
         Assert.assertEquals(33, score);
 
@@ -37,7 +36,6 @@ public class BoggleSolverTest {
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
-            System.out.println(word);
         }
         Assert.assertEquals(84, score);
 
@@ -51,7 +49,6 @@ public class BoggleSolverTest {
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
-            System.out.println(word);
         }
         Assert.assertEquals(11, score);
 
@@ -67,7 +64,6 @@ public class BoggleSolverTest {
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
-            System.out.println(word);
         }
         Assert.assertEquals(4, score);
 
@@ -83,7 +79,6 @@ public class BoggleSolverTest {
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
-            System.out.println(word);
         }
         Assert.assertEquals(5, score);
 
@@ -99,7 +94,6 @@ public class BoggleSolverTest {
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
-            System.out.println(word);
         }
         Assert.assertEquals(100, score);
 
@@ -115,9 +109,41 @@ public class BoggleSolverTest {
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
-            System.out.println(word);
         }
         Assert.assertEquals(1500, score);
+
+    }
+
+    @Test
+    public void testBoggleSolver_Board777() {
+
+        In in = new In(new Scanner(BoggleSolverTest.class.getClassLoader().getResourceAsStream("dictionary-yawl.txt")));
+        String[] dictionary = in.readAllLines();
+        BoggleSolver solver = new BoggleSolver(dictionary);
+        BoggleBoard board = new BoggleBoard(PATH + "board-points777.txt");
+        int score = 0;
+        for (String word : solver.getAllValidWords(board)) {
+            score += solver.scoreOf(word);
+        }
+        Assert.assertEquals(777, score);
+
+    }
+
+    @Test
+    public void testBoggleSolver_Board26539_10times() {
+
+        In in = new In(new Scanner(BoggleSolverTest.class.getClassLoader().getResourceAsStream("dictionary-yawl.txt")));
+        String[] dictionary = in.readAllLines();
+        BoggleSolver solver = new BoggleSolver(dictionary);
+        BoggleBoard board = new BoggleBoard(PATH + "board-points26539.txt");
+        int count = 0;
+        while (count++ < 10) {
+            int score = 0;
+            for (String word : solver.getAllValidWords(board)) {
+                score += solver.scoreOf(word);
+            }
+            Assert.assertEquals(26539, score);
+        }
 
     }
 
