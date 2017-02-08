@@ -41,15 +41,15 @@ public class BoggleSolver {
     public Iterable<String> getAllValidWords(BoggleBoard board) {
         boolean[][] visited;
         Set<String> allWords = new HashSet<>();
-        for (int i = 0; i < board.cols(); i++) {
-            for (int j = 0; j < board.rows(); j++) {
-                visited = new boolean[board.cols()][board.rows()];
+        for (int i = 0; i < board.rows(); i++) {
+            for (int j = 0; j < board.cols(); j++) {
+                visited = new boolean[board.rows()][board.cols()];
                 visited[i][j] = true;
-                String str = String.valueOf(board.getLetter(i, j));
-                if (str.equals("Q")) {
-                    str += "U";
+                StringBuilder str = new StringBuilder(String.valueOf(board.getLetter(i, j)));
+                if (str.toString().equals("Q")) {
+                    str.append("U");
                 }
-                testString(str, new Cell(i, j), visited, board, allWords);
+                testString(str.toString(), new Cell(i, j), visited, board, allWords);
             }
         }
         return allWords;
@@ -63,24 +63,24 @@ public class BoggleSolver {
         for (Cell c : adj) {
             if (!visited[c.x][c.y]) {
                 char currentLetter = board.getLetter(c.x, c.y);
-                String nextStr = str + currentLetter;
+                StringBuilder nextStr = new StringBuilder(str).append(currentLetter);
                 if (currentLetter == 'Q') {
-                    nextStr += 'U';
+                    nextStr.append('U');
                 }
-                if (tst.containsPrefix(nextStr)) {
-                    if (nextStr.length() > 2 && tst.contains(nextStr)) {
-                        allWords.add(nextStr);
+                if (tst.containsPrefix(nextStr.toString())) {
+                    if (nextStr.length() > 2 && tst.contains(nextStr.toString())) {
+                        allWords.add(nextStr.toString());
                     }
-                    testString(nextStr, c, copyOfVisited(visited, board), board, allWords);
+                    testString(nextStr.toString(), c, copyOfVisited(visited, board), board, allWords);
                 }
             }
         }
     }
 
     private boolean[][] copyOfVisited(boolean[][] visited, BoggleBoard board) {
-        boolean[][] newVisited = new boolean[board.cols()][board.rows()];
-        for (int i = 0; i < board.cols(); i++) {
-            for (int j = 0; j < board.rows(); j++) {
+        boolean[][] newVisited = new boolean[board.rows()][board.cols()];
+        for (int i = 0; i < board.rows(); i++) {
+            for (int j = 0; j < board.cols(); j++) {
                 newVisited[i][j] = visited[i][j];
             }
         }
@@ -91,7 +91,7 @@ public class BoggleSolver {
         List<Cell> adjacent = new ArrayList<>();
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
-                if (i >= 0 && j >= 0 && i < board.cols() && j < board.rows() && !visited[i][j]) {
+                if (i >= 0 && j >= 0 && i < board.rows() && j < board.cols() && !visited[i][j]) {
                     adjacent.add(new Cell(i, j));
                 }
             }
@@ -102,6 +102,9 @@ public class BoggleSolver {
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
     // (You can assume the word contains only the uppercase letters A through Z.)
     public int scoreOf(String word) {
+        if (!tst.contains(word)) {
+            return 0;
+        }
         return score.get(word.length() < 8 ? word.length() : 8);
     }
 
@@ -142,7 +145,9 @@ public class BoggleSolver {
                 throw new IllegalArgumentException("key must have length >= 1");
             } else {
                 char c = key.charAt(d);
-                return c < x.c ? this.get(x.left, key, d) : (c > x.c ? this.get(x.right, key, d) : (d < key.length() - 1 ? this.get(x.mid, key, d + 1) : x));
+                return c < x.c ? this.get(x.left, key, d) :
+                        (c > x.c ? this.get(x.right, key, d) :
+                                (d < key.length() - 1 ? this.get(x.mid, key, d + 1) : x));
             }
         }
 
@@ -161,7 +166,7 @@ public class BoggleSolver {
         private Node<Value> put(Node<Value> x, String key, Value val, int d) {
             char c = key.charAt(d);
             if (x == null) {
-                x = new Node();
+                x = new Node<>();
                 x.c = c;
             }
 
@@ -185,7 +190,7 @@ public class BoggleSolver {
                 return null;
             } else {
                 int length = 0;
-                Node x = this.root;
+                Node<Value> x = this.root;
                 int i = 0;
 
                 while (x != null && i < query.length()) {
@@ -209,7 +214,7 @@ public class BoggleSolver {
         }
 
         public Iterable<String> keys() {
-            Queue queue = new Queue();
+            Queue<String> queue = new Queue<>();
             this.collect(this.root, new StringBuilder(), queue);
             return queue;
         }
@@ -218,7 +223,7 @@ public class BoggleSolver {
             if (prefix == null) {
                 throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
             } else {
-                Queue queue = new Queue();
+                Queue<String> queue = new Queue<>();
                 Node x = this.get(this.root, prefix, 0);
                 if (x == null) {
                     return queue;

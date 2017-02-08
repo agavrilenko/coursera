@@ -128,6 +128,20 @@ public class BoggleSolverTest {
         Assert.assertEquals(777, score);
 
     }
+@Test
+    public void testBoggleSolver_BoardLongColumn() {
+
+        In in = new In(new Scanner(BoggleSolverTest.class.getClassLoader().getResourceAsStream("dictionary-yawl.txt")));
+        String[] dictionary = in.readAllLines();
+        BoggleSolver solver = new BoggleSolver(dictionary);
+        BoggleBoard board = new BoggleBoard(PATH + "board-dichlorodiphenyltrichloroethanes.txt");
+        int score = 0;
+        for (String word : solver.getAllValidWords(board)) {
+            score += solver.scoreOf(word);
+        }
+        Assert.assertEquals(68, score);
+
+    }
 
     @Test
     public void testBoggleSolver_Board26539_10times() {
