@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -40,44 +41,54 @@ public class BoggleSolver {
     public Iterable<String> getAllValidWords(BoggleBoard board) {
         boolean[][] visited;
         Set<String> allWords = new HashSet<>();
-        for (int i = 0; i < board.rows(); i++) {
-            for (int j = 0; j < board.cols(); j++) {
-                String str = String.valueOf(board.getLetter(i, j));
-                List<Cell> adj = adj(i, j);
-                visited = new boolean[board.rows()][board.cols()];
+        for (int i = 0; i < board.cols(); i++) {
+            for (int j = 0; j < board.rows(); j++) {
+                visited = new boolean[board.cols()][board.rows()];
                 visited[i][j] = true;
-                for (Cell cell : adj) {
-
-                    if (!visited[cell.x][cell.y]) {
-
-
-                        test(str, cell, copyOfVisited(visited, board), board, allWords);
-                    }
-                }
-
+                testString(String.valueOf(board.getLetter(i, j)), new Cell(i, j), visited, board, allWords);
             }
         }
-        return null;
+        return allWords;
     }
 
-
-    private void test(String str, Cell cell, boolean[][] visited, BoggleBoard board, Set<String> allWords) {
-        for (; ; ) {
+    // exits when all neighbours are visited or don't lead to new prefix
+    // mark visited true for all cells in the path
+    private void testString(String str, Cell cell, boolean[][] visited, BoggleBoard board, Set<String> allWords) {
+        List<Cell> adj = adj(cell.x, cell.y, visited, board);
+        visited[cell.x][cell.y] = true;
+        for (Cell c : adj) {
+            if (!visited[c.x][c.y]) {
+                String nextStr = str + board.getLetter(c.x, c.y);
+                if (tst.containsPrefix(nextStr)) {
+                    if (tst.contains(nextStr)) {
+                        allWords.add(nextStr);
+                    }
+                    testString(nextStr, c, copyOfVisited(visited, board), board, allWords);
+                }
+            }
         }
     }
 
     private boolean[][] copyOfVisited(boolean[][] visited, BoggleBoard board) {
-        boolean[][] newVisited = new boolean[board.rows()][board.cols()];
-        for (int i = 0; i < board.rows(); i++) {
-            for (int j = 0; j < board.cols(); j++) {
+        boolean[][] newVisited = new boolean[board.cols()][board.rows()];
+        for (int i = 0; i < board.cols(); i++) {
+            for (int j = 0; j < board.rows(); j++) {
                 newVisited[i][j] = visited[i][j];
             }
         }
         return newVisited;
     }
 
-    private List<Cell> adj(int i, int j) {
-        return null;
+    private List<Cell> adj(int x, int y, boolean[][] visited, BoggleBoard board) {
+        List<Cell> adjacent = new ArrayList<>();
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (i >= 0 && j >= 0 && i < board.cols() && j < board.rows() && !visited[i][j]) {
+                    adjacent.add(new Cell(i, j));
+                }
+            }
+        }
+        return adjacent;
     }
 
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
@@ -255,6 +266,32 @@ public class BoggleSolver {
                     this.collect(x.right, prefix, i, pattern, queue);
                 }
 
+            }
+        }
+
+        public boolean containsPrefix(String query) {
+            if (query == null) {
+                throw new IllegalArgumentException("calls longestPrefixOf() with null argument");
+            } else if (query.length() == 0) {
+                return false;
+            } else {
+                int length = 0;
+                Node x = this.root;
+                int i = 0;
+
+                while (x != null && i < query.length()) {
+                    char c = query.charAt(i);
+                    if (c < x.c) {
+                        x = x.left;
+                    } else if (c > x.c) {
+                        x = x.right;
+                    } else {
+                        ++i;
+                        length = i;
+                        x = x.mid;
+                    }
+                }
+                return query.length() == length;
             }
         }
 

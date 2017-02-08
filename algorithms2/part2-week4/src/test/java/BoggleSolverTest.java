@@ -18,7 +18,6 @@ public class BoggleSolverTest {
         String[] dictionary = in.readAllLines();
         BoggleSolver solver = new BoggleSolver(dictionary);
         BoggleBoard board = new BoggleBoard(PATH + "board4x4.txt");
-        solver.getAllValidWords(board);
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
@@ -34,7 +33,6 @@ public class BoggleSolverTest {
         String[] dictionary = in.readAllLines();
         BoggleSolver solver = new BoggleSolver(dictionary);
         BoggleBoard board = new BoggleBoard(PATH + "board-q.txt");
-        solver.getAllValidWords(board);
         int score = 0;
         for (String word : solver.getAllValidWords(board)) {
             score += solver.scoreOf(word);
