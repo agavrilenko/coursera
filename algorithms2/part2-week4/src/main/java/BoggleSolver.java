@@ -45,7 +45,11 @@ public class BoggleSolver {
             for (int j = 0; j < board.rows(); j++) {
                 visited = new boolean[board.cols()][board.rows()];
                 visited[i][j] = true;
-                testString(String.valueOf(board.getLetter(i, j)), new Cell(i, j), visited, board, allWords);
+                String str = String.valueOf(board.getLetter(i, j));
+                if (str.equals("Q")) {
+                    str += "U";
+                }
+                testString(str, new Cell(i, j), visited, board, allWords);
             }
         }
         return allWords;
@@ -58,7 +62,11 @@ public class BoggleSolver {
         visited[cell.x][cell.y] = true;
         for (Cell c : adj) {
             if (!visited[c.x][c.y]) {
-                String nextStr = str + board.getLetter(c.x, c.y);
+                char currentLetter = board.getLetter(c.x, c.y);
+                String nextStr = str + currentLetter;
+                if (currentLetter == 'Q') {
+                    nextStr += 'U';
+                }
                 if (tst.containsPrefix(nextStr)) {
                     if (nextStr.length() > 2 && tst.contains(nextStr)) {
                         allWords.add(nextStr);
