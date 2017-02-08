@@ -29,8 +29,8 @@ public class BoggleSolver {
         score.put(0, 0);
         score.put(1, 0);
         score.put(2, 0);
-        score.put(3, 2);
-        score.put(4, 2);
+        score.put(3, 1);
+        score.put(4, 1);
         score.put(5, 2);
         score.put(6, 3);
         score.put(7, 5);
@@ -60,7 +60,7 @@ public class BoggleSolver {
             if (!visited[c.x][c.y]) {
                 String nextStr = str + board.getLetter(c.x, c.y);
                 if (tst.containsPrefix(nextStr)) {
-                    if (tst.contains(nextStr)) {
+                    if (nextStr.length() > 2 && tst.contains(nextStr)) {
                         allWords.add(nextStr);
                     }
                     testString(nextStr, c, copyOfVisited(visited, board), board, allWords);
