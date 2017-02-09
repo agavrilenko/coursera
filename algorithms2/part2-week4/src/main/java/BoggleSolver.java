@@ -1,8 +1,8 @@
 import edu.princeton.cs.algs4.Queue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +14,8 @@ public class BoggleSolver {
 
     private TST<Integer> tst = new TST<Integer>();
     private Map<Integer, Integer> score;
+    private Set<String> allWords;
+    private BoggleBoard cachedBoard = new BoggleBoard();
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
@@ -39,9 +41,12 @@ public class BoggleSolver {
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
-
+        if (cachedBoard.equals(board)) {
+            return allWords;
+        }
+        cachedBoard = board;
         boolean[][] visited;
-        Set<String> allWords = new HashSet<>();
+        allWords = new HashSet<>();
         for (int i = 0; i < board.rows(); i++) {
             for (int j = 0; j < board.cols(); j++) {
                 visited = new boolean[board.rows()][board.cols()];
@@ -59,8 +64,8 @@ public class BoggleSolver {
     // exits when all neighbours are visited or don't lead to new prefix
     // mark visited true for all cells in the path
     private void testString(String str, Cell cell, boolean[][] visited, BoggleBoard board, Set<String> allWords) {
-        List<Cell> adj = adj(cell.x, cell.y, visited, board);
         visited[cell.x][cell.y] = true;
+        List<Cell> adj = adj(cell.x, cell.y, visited, board);
         for (Cell c : adj) {
             if (!visited[c.x][c.y]) {
                 char currentLetter = board.getLetter(c.x, c.y);
@@ -72,24 +77,29 @@ public class BoggleSolver {
                     if (nextStr.length() > 2 && tst.contains(nextStr.toString())) {
                         allWords.add(nextStr.toString());
                     }
-                    testString(nextStr.toString(), c, copyOfVisited(visited, board), board, allWords);
+                    testString(nextStr.toString(), c, copyOfVisited(visited), board, allWords);
                 }
             }
         }
     }
 
-    private boolean[][] copyOfVisited(boolean[][] visited, BoggleBoard board) {
-        boolean[][] newVisited = new boolean[board.rows()][board.cols()];
-        for (int i = 0; i < board.rows(); i++) {
-            for (int j = 0; j < board.cols(); j++) {
-                newVisited[i][j] = visited[i][j];
-            }
+    private boolean[][] copyOfVisited(boolean[][] visited) {
+        //        boolean[][] newVisited = new boolean[board.rows()][board.cols()];
+        //        for (int i = 0; i < board.rows(); i++) {
+        //            for (int j = 0; j < board.cols(); j++) {
+        //                newVisited[i][j] = visited[i][j];
+        //            }
+        //        }
+        int length = visited.length;
+        boolean[][] target = new boolean[length][visited[0].length];
+        for (int i = 0; i < length; i++) {
+            System.arraycopy(visited[i], 0, target[i], 0, visited[i].length);
         }
-        return newVisited;
+        return target;
     }
 
     private List<Cell> adj(int x, int y, boolean[][] visited, BoggleBoard board) {
-        List<Cell> adjacent = new ArrayList<>();
+        List<Cell> adjacent = new LinkedList<>();
         for (int i = x - 1; i <= x + 1; i++) {
             for (int j = y - 1; j <= y + 1; j++) {
                 if (i >= 0 && j >= 0 && i < board.rows() && j < board.cols() && !visited[i][j]) {
