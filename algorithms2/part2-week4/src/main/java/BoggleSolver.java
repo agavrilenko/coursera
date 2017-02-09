@@ -39,6 +39,7 @@ public class BoggleSolver {
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
+
         boolean[][] visited;
         Set<String> allWords = new HashSet<>();
         for (int i = 0; i < board.rows(); i++) {
@@ -224,7 +225,7 @@ public class BoggleSolver {
                 throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
             } else {
                 Queue<String> queue = new Queue<>();
-                Node x = this.get(this.root, prefix, 0);
+                Node<Value> x = this.get(this.root, prefix, 0);
                 if (x == null) {
                     return queue;
                 } else {
@@ -252,7 +253,7 @@ public class BoggleSolver {
         }
 
         public Iterable<String> keysThatMatch(String pattern) {
-            Queue queue = new Queue();
+            Queue<String> queue = new Queue<>();
             this.collect(this.root, new StringBuilder(), 0, pattern, queue);
             return queue;
         }
@@ -289,7 +290,7 @@ public class BoggleSolver {
                 return false;
             } else {
                 int length = 0;
-                Node x = this.root;
+                Node<Value> x = this.root;
                 int i = 0;
 
                 while (x != null && i < query.length()) {
