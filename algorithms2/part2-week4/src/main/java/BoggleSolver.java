@@ -63,7 +63,7 @@ public class BoggleSolver {
 
     // exits when all neighbours are visited or don't lead to new prefix
     // mark visited true for all cells in the path
-    private void testString(String str, Cell cell, boolean[][] visited, BoggleBoard board, Set<String> allWords) {
+    private void testString(String str, Cell cell, boolean[][] visited, BoggleBoard board, Set<String> words) {
         visited[cell.x][cell.y] = true;
         List<Cell> adj = adj(cell.x, cell.y, visited, board);
         for (Cell c : adj) {
@@ -75,21 +75,16 @@ public class BoggleSolver {
                 }
                 if (tst.containsPrefix(nextStr.toString())) {
                     if (nextStr.length() > 2 && tst.contains(nextStr.toString())) {
-                        allWords.add(nextStr.toString());
+                        words.add(nextStr.toString());
                     }
-                    testString(nextStr.toString(), c, copyOfVisited(visited), board, allWords);
+                    testString(nextStr.toString(), c, copyOfVisited(visited), board, words);
                 }
             }
         }
     }
 
     private boolean[][] copyOfVisited(boolean[][] visited) {
-        //        boolean[][] newVisited = new boolean[board.rows()][board.cols()];
-        //        for (int i = 0; i < board.rows(); i++) {
-        //            for (int j = 0; j < board.cols(); j++) {
-        //                newVisited[i][j] = visited[i][j];
-        //            }
-        //        }
+
         int length = visited.length;
         boolean[][] target = new boolean[length][visited[0].length];
         for (int i = 0; i < length; i++) {
