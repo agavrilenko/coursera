@@ -77,20 +77,11 @@ public class BoggleSolver {
                     if (nextStr.length() > 2 && tst.contains(nextStr.toString())) {
                         words.add(nextStr.toString());
                     }
-                    testString(nextStr.toString(), c, copyOfVisited(visited), board, words);
+                    testString(nextStr.toString(), c, visited, board, words);
                 }
             }
         }
-    }
-
-    private boolean[][] copyOfVisited(boolean[][] visited) {
-
-        int length = visited.length;
-        boolean[][] target = new boolean[length][visited[0].length];
-        for (int i = 0; i < length; i++) {
-            System.arraycopy(visited[i], 0, target[i], 0, visited[i].length);
-        }
-        return target;
+        visited[cell.x][cell.y] = false;
     }
 
     private List<Cell> adj(int x, int y, boolean[][] visited, BoggleBoard board) {
