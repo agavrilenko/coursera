@@ -70,6 +70,17 @@ public class BoggleSolverTest {
     }
 
     @Test
+    public void testBoggleSolver_Score() {
+
+        In in = new In(new Scanner(BoggleSolverTest.class.getClassLoader().getResourceAsStream("dictionary-yawl.txt")));
+        String[] dictionary = in.readAllLines();
+        BoggleSolver solver = new BoggleSolver(dictionary);
+        int score = solver.scoreOf("INDE");
+        Assert.assertEquals(0, score);
+
+    }
+
+    @Test
     public void testBoggleSolver_Board5() {
 
         In in = new In(new Scanner(BoggleSolverTest.class.getClassLoader().getResourceAsStream("dictionary-yawl.txt")));
@@ -128,7 +139,8 @@ public class BoggleSolverTest {
         Assert.assertEquals(777, score);
 
     }
-@Test
+
+    @Test
     public void testBoggleSolver_BoardLongColumn() {
 
         In in = new In(new Scanner(BoggleSolverTest.class.getClassLoader().getResourceAsStream("dictionary-yawl.txt")));
@@ -151,7 +163,7 @@ public class BoggleSolverTest {
         BoggleSolver solver = new BoggleSolver(dictionary);
         BoggleBoard board = new BoggleBoard(PATH + "board-points26539.txt");
         int count = 0;
-        while (count++ < 10) {
+        while (count++ < 50) {
             int score = 0;
             for (String word : solver.getAllValidWords(board)) {
                 score += solver.scoreOf(word);

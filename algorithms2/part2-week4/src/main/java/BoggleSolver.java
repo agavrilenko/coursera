@@ -12,18 +12,29 @@ import java.util.Set;
  */
 public class BoggleSolver {
 
-    private TST<Integer> tst = new TST<Integer>();
+        private TST<Integer> tst = new TST<Integer>();
+//    private TrieST<Integer> tst = new TrieST<>();
     private Map<Integer, Integer> score;
     private Set<String> allWords;
     private BoggleBoard cachedBoard = new BoggleBoard();
+//    private static long timingTST = 0;
+//    private long timingAdj = 0;
+//    private long timingLoad = 0;
+//    private long total = 0;
+//    private long timingRec = 0;
+//    private long timingAdd = 0;
+//    private static long timingCell = 0;
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
     public BoggleSolver(String[] dictionary) {
         initScore();
+//        timingLoad = 0;
+        long delta = System.currentTimeMillis();
         for (String word : dictionary) {
             tst.put(word, 0);
         }
+//        timingLoad = timingLoad + System.currentTimeMillis() - delta;
     }
 
     private void initScore() {
@@ -41,6 +52,11 @@ public class BoggleSolver {
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
+//        timingTST = 0;
+//        timingAdj = 0;
+//        timingRec = 0;
+//        timingCell = 0;
+//        total = System.currentTimeMillis();
         if (cachedBoard.equals(board)) {
             return allWords;
         }
@@ -58,6 +74,13 @@ public class BoggleSolver {
                 testString(str.toString(), new Cell(i, j), visited, board, allWords);
             }
         }
+//        total = System.currentTimeMillis() - total;
+//        System.out.print("Load = [" + timingLoad + "] ");
+//        System.out.print("TST = [" + timingTST + "] ");
+//        System.out.print("Adj = [" + timingAdj + "] ");
+//        System.out.print("Rec = [" + timingRec + "] ");
+//        System.out.print("Add = [" + timingAdd + "] ");
+//        System.out.println("Total = [" + total + "] ");
         return allWords;
     }
 
@@ -66,40 +89,72 @@ public class BoggleSolver {
     private void testString(String str, Cell cell, boolean[][] visited, BoggleBoard board, Set<String> words) {
         visited[cell.x][cell.y] = true;
         List<Cell> adj = adj(cell.x, cell.y, visited, board);
+
         for (Cell c : adj) {
-            if (!visited[c.x][c.y]) {
-                char currentLetter = board.getLetter(c.x, c.y);
-                StringBuilder nextStr = new StringBuilder(str).append(currentLetter);
-                if (currentLetter == 'Q') {
-                    nextStr.append('U');
-                }
-                if (tst.containsPrefix(nextStr.toString())) {
-                    if (nextStr.length() > 2 && tst.contains(nextStr.toString())) {
-                        words.add(nextStr.toString());
-                    }
-                    testString(nextStr.toString(), c, visited, board, words);
-                }
+//            if (!visited[c.x][c.y]) {
+//            long delta = System.currentTimeMillis();
+            char currentLetter = board.getLetter(c.x, c.y);
+//                StringBuilder nextStr = new StringBuilder(str).append(currentLetter);
+            String query;
+            if (currentLetter == 'Q') {
+                query = new StringBuilder(str).append("QU").toString();
+//                    nextStr.append('U');
+            } else {
+                query = new StringBuilder(str).append(currentLetter).toString();
             }
+//                query = nextStr.toString();
+//            timingRec = timingRec + System.currentTimeMillis() - delta;
+            int result = tst.containsWord(query);
+            if (result > -1) {
+//                long deltaAdd = System.currentTimeMillis();
+                if (result == 1 && query.length() > 2) {
+                    words.add(query);
+                }
+//                timingAdd = timingAdd + System.currentTimeMillis() - deltaAdd;
+                testString(query, c, visited, board, words);
+            }
+//            }
         }
         visited[cell.x][cell.y] = false;
     }
 
     private List<Cell> adj(int x, int y, boolean[][] visited, BoggleBoard board) {
+        long delta = System.currentTimeMillis();
         List<Cell> adjacent = new LinkedList<>();
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 1; j <= y + 1; j++) {
-                if (i >= 0 && j >= 0 && i < board.rows() && j < board.cols() && !visited[i][j]) {
-                    adjacent.add(new Cell(i, j));
-                }
-            }
+
+        if (x - 1 >= 0 && y - 1 >= 0 && x - 1 < board.rows() && y - 1 < board.cols() && !visited[x - 1][y - 1]) {
+            adjacent.add(new Cell(x - 1, y - 1));
         }
+        if (x - 1 >= 0 && y >= 0 && x - 1 < board.rows() && y < board.cols() && !visited[x - 1][y]) {
+            adjacent.add(new Cell(x - 1, y));
+        }
+        if (x - 1 >= 0 && y + 1 >= 0 && x - 1 < board.rows() && y + 1 < board.cols() && !visited[x - 1][y + 1]) {
+            adjacent.add(new Cell(x - 1, y + 1));
+        }
+
+        if (x >= 0 && y - 1 >= 0 && x < board.rows() && y - 1 < board.cols() && !visited[x][y - 1]) {
+            adjacent.add(new Cell(x, y - 1));
+        }
+        if (x >= 0 && y + 1 >= 0 && x < board.rows() && y + 1 < board.cols() && !visited[x][y + 1]) {
+            adjacent.add(new Cell(x, y + 1));
+        }
+        if (x + 1 >= 0 && y - 1 >= 0 && x + 1 < board.rows() && y - 1 < board.cols() && !visited[x + 1][y - 1]) {
+            adjacent.add(new Cell(x + 1, y - 1));
+        }
+        if (x + 1 >= 0 && y >= 0 && x + 1 < board.rows() && y < board.cols() && !visited[x + 1][y]) {
+            adjacent.add(new Cell(x + 1, y));
+        }
+        if (x + 1 >= 0 && y + 1 >= 0 && x + 1 < board.rows() && y + 1 < board.cols() && !visited[x + 1][y + 1]) {
+            adjacent.add(new Cell(x + 1, y + 1));
+        }
+//        timingAdj = timingAdj + System.currentTimeMillis() - delta;
         return adjacent;
     }
 
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
     // (You can assume the word contains only the uppercase letters A through Z.)
     public int scoreOf(String word) {
-        if (!tst.contains(word)) {
+        if (tst.containsWord(word) != 1) {
             return 0;
         }
         return score.get(word.length() < 8 ? word.length() : 8);
@@ -279,16 +334,17 @@ public class BoggleSolver {
             }
         }
 
-        public boolean containsPrefix(String query) {
+        public int containsWord(String query) {
+            long delta = System.currentTimeMillis();
             if (query == null) {
                 throw new IllegalArgumentException("calls longestPrefixOf() with null argument");
             } else if (query.length() == 0) {
-                return false;
+                return -1;
             } else {
                 int length = 0;
                 Node<Value> x = this.root;
                 int i = 0;
-
+                Value res = null;
                 while (x != null && i < query.length()) {
                     char c = query.charAt(i);
                     if (c < x.c) {
@@ -298,10 +354,12 @@ public class BoggleSolver {
                     } else {
                         ++i;
                         length = i;
+                        res = x.val;
                         x = x.mid;
                     }
                 }
-                return query.length() == length;
+//                timingTST = timingTST + System.currentTimeMillis() - delta;
+                return query.length() != length ? -1 : res == null ? 0 : 1;
             }
         }
 
@@ -327,5 +385,194 @@ public class BoggleSolver {
         }
 
     }
+
+    /* *************** */
+
+    private static class TrieST<Value> {
+        private static final int R = 26;
+        private Node root;
+        private int n;
+
+        public TrieST() {
+        }
+
+//        public Value get(String key) {
+//            TrieST.Node<Value> x = this.get(this.root, key, 0);
+//            return x == null ? null : x.val;
+//        }
+
+//        public boolean contains(String key) {
+//            return this.get(key) != null;
+//        }
+
+        public int containsWord(String query) {
+            long delta = System.currentTimeMillis();
+            // int length = this.longestPrefixOf(this.root, query, 0, -1);
+            if (query == null) {
+                throw new IllegalArgumentException("calls longestPrefixOf() with null argument");
+            } else if (query.length() == 0) {
+                return -1;
+            } else {
+                int length = 0;
+                int i = 0;
+                Node<Value> x = this.root;
+                Value res = null;
+                while (x != null && i < query.length()) {
+                    char c = query.charAt(i);
+                    x = x.next[c - 65];
+                    if (x != null) {
+                        res = x.val;
+                    } else {
+                        res = null;
+                    }
+                    ++i;
+                    length = i;
+                }
+//                timingTST = timingTST + System.currentTimeMillis() - delta;
+                return res != null ? 1 : length != query.length() ? -1 : 0;
+            }
+        }
+
+//        private Node<Value> get(Node<Value> x, String key, int d) {
+//            if (x == null) {
+//                return null;
+//            } else if (d == key.length()) {
+//                return x;
+//            } else {
+//                char c = key.charAt(d);
+//                return this.get(x.next[c], key, d + 1);
+//            }
+//        }
+
+        public void put(String key, Value val) {
+//            if (val == null) {
+//                this.delete(key);
+//            } else {
+            this.root = this.put(this.root, key, val, 0);
+//            }
+
+        }
+
+        private Node put(Node x, String key, Value val, int d) {
+            if (x == null) {
+                x = new Node();
+            }
+
+            if (d == key.length()) {
+                if (x.val == null) {
+                    ++this.n;
+                }
+
+                x.val = val;
+                return x;
+            } else {
+                char c = key.charAt(d);
+                x.next[c - 65] = this.put(x.next[c - 65], key, val, d + 1);
+                return x;
+            }
+        }
+
+        public int size() {
+            return this.n;
+        }
+
+        public boolean isEmpty() {
+            return this.size() == 0;
+        }
+
+//        public Iterable<String> keys() {
+//            return this.keysWithPrefix("");
+//        }
+//
+//        public Iterable<String> keysWithPrefix(String prefix) {
+//            Queue results = new Queue();
+//            Node x = this.get(this.root, prefix, 0);
+//            this.collect(x, new StringBuilder(prefix), results);
+//            return results;
+//        }
+
+//        private void collect(Node x, StringBuilder prefix, Queue<String> results) {
+//            if (x != null) {
+//                if (x.val != null) {
+//                    results.enqueue(prefix.toString());
+//                }
+//
+//                for (char c = 0; c < 26; ++c) {
+//                    prefix.append(c);
+//                    this.collect(x.next[c], prefix, results);
+//                    prefix.deleteCharAt(prefix.length() - 1);
+//                }
+//
+//            }
+//        }
+
+//        public Iterable<String> keysThatMatch(String pattern) {
+//            Queue results = new Queue();
+//            this.collect(this.root, new StringBuilder(), pattern, results);
+//            return results;
+//        }
+
+//        private void collect(Node x, StringBuilder prefix, String pattern, Queue<String> results) {
+//            if (x != null) {
+//                int d = prefix.length();
+//                if (d == pattern.length() && x.val != null) {
+//                    results.enqueue(prefix.toString());
+//                }
+//
+//                if (d != pattern.length()) {
+//                    char c = pattern.charAt(d);
+//                    if (c == 46) {
+//                        for (char ch = 0; ch < 26; ++ch) {
+//                            prefix.append(ch);
+//                            this.collect(x.next[ch], prefix, pattern, results);
+//                            prefix.deleteCharAt(prefix.length() - 1);
+//                        }
+//                    } else {
+//                        prefix.append(c);
+//                        this.collect(x.next[c], prefix, pattern, results);
+//                        prefix.deleteCharAt(prefix.length() - 1);
+//                    }
+//
+//                }
+//            }
+//        }
+
+//        public String longestPrefixOf(String query) {
+//            int length = this.longestPrefixOf(this.root, query, 0, -1);
+//            return length == -1 ? null : query.substring(0, length);
+//        }
+//
+//        private int longestPrefixOf(Node x, String query, int d, int length) {
+//            if (x == null) {
+//                return length;
+//            } else {
+//                if (x.val != null) {
+//                    length = d;
+//                }
+//
+//                if (d == query.length()) {
+//                    return length;
+//                } else {
+//                    char c = query.charAt(d);
+//                    return this.longestPrefixOf(x.next[c], query, d + 1, length);
+//                }
+//            }
+//        }
+
+//        public void delete(String key) {
+//            this.root = this.delete(this.root, key, 0);
+//        }
+
+
+        private static class Node<Value> {
+            private Value val;
+            private Node[] next;
+
+            private Node() {
+                this.next = new Node[26];
+            }
+        }
+    }
+
 
 }
