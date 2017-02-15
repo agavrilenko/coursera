@@ -5,7 +5,7 @@ import edu.princeton.cs.algs4.BinaryStdOut;
  * Created by trash on 12-Feb-17.
  */
 public class MoveToFront {
-    private final static int R = 256;
+    public final static int R = 256;
     private char[] tmp = new char[256];
     private char[] pos = new char[256];
 
