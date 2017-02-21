@@ -10,23 +10,32 @@ public class CircularSuffixArray {
     private int[] ranks;
 
     // circular suffix array of s
+    // rank[i] - 1 index of symbol after encoding
     public CircularSuffixArray(String s) {
         if (s == null) {
             throw new NullPointerException("Incoming string is null");
         }
+        char[] source = s.toCharArray();
+        init(s, source);
+
+    }
+
+    private void init(String s, char[] source) {
         n = s.length();
         ranks = new int[n];
-        char[] source = s.toCharArray();
         suffix = new SuffixArrayX(s);
         char[] tmp = new char[n];
         for (int i = 0; i < n; i++) {
             System.arraycopy(source, 0, tmp, n - i, i);
             System.arraycopy(source, i, tmp, 0, n - i);
             String query = new String(tmp);
-            final int rank = suffix.rank(query);
+            String substring = query.substring(0, n - i);
+            int rank = suffix.rank(substring);
+            if (rank == 0) {
+                rank = 1;
+            }
             ranks[rank - 1] = i;
         }
-
     }
 
     // length of s

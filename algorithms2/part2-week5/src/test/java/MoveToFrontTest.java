@@ -57,6 +57,22 @@ public class MoveToFrontTest {
     @Test
     public void testMoveToFront_DecodeArbitraryText() throws NoSuchFieldException, IllegalAccessException, IOException, NoSuchMethodException, InvocationTargetException, InstantiationException {
 
+        String text = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&**()]['\"/?.,-_=+";
+
+        StringBuilder outS = encodeDecode(text);
+        Assert.assertEquals(text, outS.toString());
+    }
+
+    @Test
+    public void testMoveToFront_DecodeArbitraryText1() throws NoSuchFieldException, IllegalAccessException, IOException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+
+        String text = "religion, freedom of";
+
+        StringBuilder outS = encodeDecode(text);
+        Assert.assertEquals(text, outS.toString());
+    }
+
+    private StringBuilder encodeDecode(String text) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Constructor<MoveToFront> constructor = MoveToFront.class.getDeclaredConstructor();
         constructor.setAccessible(true);
         MoveToFront move = constructor.newInstance();
@@ -66,7 +82,6 @@ public class MoveToFrontTest {
         Method decodeChar = MoveToFront.class.getDeclaredMethod("decodeChar", int.class);
         encodeChar.setAccessible(true);
         decodeChar.setAccessible(true);
-        String text = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&**()]['\"/?.,-_=+";
         StringBuilder outS = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char in = text.charAt(i);
@@ -74,7 +89,7 @@ public class MoveToFrontTest {
             char ch = (char) decodeChar.invoke(moveBack, (int) out);
             outS.append(ch);
         }
-        Assert.assertEquals(text, outS.toString());
+        return outS;
     }
 
 }
