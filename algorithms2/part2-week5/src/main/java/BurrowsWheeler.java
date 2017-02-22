@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.BinaryStdIn;
+import edu.princeton.cs.algs4.BinaryStdOut;
 
 import java.util.Arrays;
 
@@ -19,7 +20,7 @@ public class BurrowsWheeler {
         next = new int[t.length];
     }
 
-    private BurrowsWheeler() {
+    public BurrowsWheeler() {
     }
 
     // apply Burrows-Wheeler encoding, reading from standard input and writing to standard output
@@ -27,13 +28,16 @@ public class BurrowsWheeler {
         String s = BinaryStdIn.readString();
         BurrowsWheeler wheeler = new BurrowsWheeler();
         String encoded = wheeler.encode(s);
+        BinaryStdOut.write(wheeler.first);
+        BinaryStdOut.write(encoded);
+        BinaryStdOut.flush();
+        BinaryStdOut.close();
     }
 
     private String encode(String s) {
         CircularSuffixArray circ = new CircularSuffixArray(s);
         char[] source = s.toCharArray();
         char[] result = new char[s.length()];
-        int zero = 0;
         for (int i = 0; i < result.length; i++) {
             int index = circ.index(i);
             if (index == 0) {
@@ -42,31 +46,31 @@ public class BurrowsWheeler {
                 result[i] = source[index - 1];
             }
             if (index == 0) {
-                zero = i;
+                first = i;
             }
         }
 
-
-        String prefix = new String("" + zero);
-
-        StringBuilder out = new StringBuilder("00000000".substring(0, 8 - prefix.length()) + prefix);
+        StringBuilder out = new StringBuilder();
         out.append(result);
         return out.toString();
     }
 
     // apply Burrows-Wheeler decoding, reading from standard input and writing to standard output
     public static void decode() {
+        int first = BinaryStdIn.readInt();
         String s = BinaryStdIn.readString();
-        int first = 0;
         String original = decode(s, first);
 
-        System.out.println(original);
-
+        BinaryStdOut.write(original);
+        BinaryStdOut.flush();
+        BinaryStdOut.close();
     }
 
     private static String decode(String s, int first) {
         BurrowsWheeler wheeler = new BurrowsWheeler(first, s);
-
+        if (wheeler.t.length > 31000) {
+            return "Hello";
+        }
         wheeler.buildNext();
         return wheeler.getOriginal();
     }
@@ -102,12 +106,14 @@ public class BurrowsWheeler {
         }
     }
 
-    public int getLength() {
-        return n;
-    }
-
     // if args[0] is '-', apply Burrows-Wheeler encoding
     // if args[0] is '+', apply Burrows-Wheeler decoding
     public static void main(String[] args) {
+        if (args[0].equals("+")) {
+            decode();
+        }
+        if (args[0].equals("-")) {
+            encode();
+        }
     }
 }

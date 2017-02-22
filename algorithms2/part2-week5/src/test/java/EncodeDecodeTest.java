@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -14,28 +15,28 @@ import java.lang.reflect.Method;
 public class EncodeDecodeTest {
 
     @Test
-    public void testEcnodeDecode_Simple() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public void testEcnodeDecode_Simple() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, NoSuchFieldException {
         String someText = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&**()]['\"/?.,-_=+";
         String decodedText = encodeDecode(someText);
         Assert.assertEquals(someText, decodedText);
     }
 
     @Test
-    public void testEcnodeDecode_Starts() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public void testEcnodeDecode_Starts() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, NoSuchFieldException {
         String someText = "*************";
         String decodedText = encodeDecode(someText);
         Assert.assertEquals(someText, decodedText);
     }
 
     @Test
-    public void testEcnodeDecode_SomeText() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public void testEcnodeDecode_SomeText() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, NoSuchFieldException {
         String someText = "religion, freedom of";
         String decodedText = encodeDecode(someText);
         Assert.assertEquals(someText, decodedText);
     }
 
     @Test
-    public void testEcnodeDecode_Amendments() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, IOException {
+    public void testEcnodeDecode_Amendments() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, IOException, NoSuchFieldException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(EncodeDecodeTest.class.getResourceAsStream("amendments.txt")));
         StringBuilder builder = new StringBuilder();
         String tmp;
@@ -48,13 +49,15 @@ public class EncodeDecodeTest {
     }
 
 
-    private String encodeDecode(String someText) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private String encodeDecode(String someText) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchFieldException {
         Constructor<BurrowsWheeler> constructor = BurrowsWheeler.class.getDeclaredConstructor();
         constructor.setAccessible(true);
         Method encode = BurrowsWheeler.class.getDeclaredMethod("encode", String.class);
         encode.setAccessible(true);
         Method decode = BurrowsWheeler.class.getDeclaredMethod("decode", String.class, int.class);
         decode.setAccessible(true);
+        Field first = BurrowsWheeler.class.getDeclaredField("first");
+        first.setAccessible(true);
         BurrowsWheeler wheeler = constructor.newInstance();
 
         Constructor<MoveToFront> moveToFrontConstructor = MoveToFront.class.getDeclaredConstructor();
@@ -62,7 +65,7 @@ public class EncodeDecodeTest {
         MoveToFront move = moveToFrontConstructor.newInstance();
         MoveToFront moveBack = moveToFrontConstructor.newInstance();
 
-        Method encodeChar = MoveToFront.class.getDeclaredMethod("encodeChar", char.class);
+        Method encodeChar = MoveToFront.class.getDeclaredMethod("encode", char.class);
         Method decodeChar = MoveToFront.class.getDeclaredMethod("decodeChar", int.class);
         encodeChar.setAccessible(true);
         decodeChar.setAccessible(true);
@@ -83,8 +86,8 @@ public class EncodeDecodeTest {
         }
         String stilEncoded = new String(decIns);
 
-        int first = Integer.valueOf("" + stilEncoded.substring(0, 8));
-        return (String) decode.invoke(null, stilEncoded.substring(8), first);
+        int firstt = first.getInt(wheeler);
+        return (String) decode.invoke(null, stilEncoded, firstt);
     }
 
 }
