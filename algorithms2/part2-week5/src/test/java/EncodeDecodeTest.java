@@ -27,6 +27,12 @@ public class EncodeDecodeTest {
         String decodedText = encodeDecode(someText);
         Assert.assertEquals(someText, decodedText);
     }
+    @Test
+    public void testEcnodeDecode_Cous() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, NoSuchFieldException {
+        String someText = "couscous";
+        String decodedText = encodeDecode(someText);
+        Assert.assertEquals(someText, decodedText);
+    }
 
     @Test
     public void testEcnodeDecode_SomeText() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException, NoSuchFieldException {

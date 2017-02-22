@@ -37,4 +37,33 @@ public class CircularSuffixArrayTest {
         Assert.assertEquals(11, suffixArray.index(12));
     }
 
+    @Test
+    public void testSort() {
+
+        String toTest = "ABRACADABRA!";
+
+        char[] source = toTest.toCharArray();
+        int[] ind = new int[toTest.length()];
+        int[] aux = new int[toTest.length()];
+        for (int i = 0; i < toTest.length(); i++) {
+            ind[i] = i;
+            aux[i] = i;
+        }
+
+        CircularSuffixArray.sort(aux, source, ind, 0, toTest.length() - 1, 0);
+        Assert.assertEquals(11, ind[0]);
+        Assert.assertEquals(11, ind[0]);
+        Assert.assertEquals(10, ind[1]);
+        Assert.assertEquals(7, ind[2]);
+        Assert.assertEquals(0, ind[3]);
+        Assert.assertEquals(3, ind[4]);
+        Assert.assertEquals(5, ind[5]);
+        Assert.assertEquals(8, ind[6]);
+        Assert.assertEquals(1, ind[7]);
+        Assert.assertEquals(4, ind[8]);
+        Assert.assertEquals(6, ind[9]);
+        Assert.assertEquals(9, ind[10]);
+        Assert.assertEquals(2, ind[11]);
+    }
+
 }

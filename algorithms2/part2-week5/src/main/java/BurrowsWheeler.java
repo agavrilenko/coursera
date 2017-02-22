@@ -68,9 +68,6 @@ public class BurrowsWheeler {
 
     private static String decode(String s, int first) {
         BurrowsWheeler wheeler = new BurrowsWheeler(first, s);
-        if (wheeler.t.length > 31000) {
-            return "Hello";
-        }
         wheeler.buildNext();
         return wheeler.getOriginal();
     }
