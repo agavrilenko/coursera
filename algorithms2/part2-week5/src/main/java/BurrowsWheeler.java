@@ -1,7 +1,9 @@
 import edu.princeton.cs.algs4.BinaryStdIn;
 import edu.princeton.cs.algs4.BinaryStdOut;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * Created by trash on 13-Feb-17.
@@ -86,20 +88,21 @@ public class BurrowsWheeler {
         firstLetters = new char[t.length];
         System.arraycopy(t, 0, firstLetters, 0, t.length);
         Arrays.sort(firstLetters);
-        boolean[] visited = new boolean[t.length];
         char ch;
+        LinkedList<Integer>[] pos = (LinkedList<Integer>[]) Array.newInstance(LinkedList.class, 256);
+        for (int i = 0; i < t.length; i++) {
+            ch = t[i];
+            if (pos[ch] != null) {
+                pos[ch].addLast(i);
+            } else {
+                LinkedList<Integer> cur = new LinkedList<>();
+                cur.addLast(i);
+                pos[ch] = cur;
+            }
+        }
         for (int i = 0; i < t.length; i++) {
             ch = firstLetters[i];
-            for (int j = 0; j < t.length; j++) {
-                if (next[j] > 0) {
-//                    continue;
-                }
-                if (ch == t[j] && !visited[j]) {
-                    next[i] = j;
-                    visited[j] = true;
-                    break;
-                }
-            }
+            next[i] = pos[ch].pollFirst();
         }
     }
 

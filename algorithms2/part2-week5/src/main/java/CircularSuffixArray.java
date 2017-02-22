@@ -12,7 +12,6 @@ public class CircularSuffixArray {
         if (s == null) {
             throw new NullPointerException("Incoming string is null");
         }
-//        char[] source = s.toCharArray();
         init(s);
 
     }
@@ -20,27 +19,7 @@ public class CircularSuffixArray {
     private void init(String s) {
         n = s.length();
         ranks = new int[n];
-//        String[] suffices;
-
-//        String amend = "Article";
-//        String mobi = "Call";
-//        fake = true;
-//        if (s.startsWith(amend) || s.startsWith(mobi) || s.startsWith("G")) {
-//            fake = false;
-//        }
-
-//        if (n > 3500 && fake) {
-//            suffices = ("d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|" +
-//                    "d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|" +
-//                    "d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|" +
-//                    "d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d" +
-//                    "|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|d|").split("|");
-//            n = suffices.length;
-//        } else {
-//            suffices = new String[n];
-//        }
         char[] source = s.toCharArray();
-//        int[] ind = new int[s.length()];
         int[] aux = new int[s.length()];
         for (int i = 0; i < s.length(); i++) {
             ranks[i] = i;

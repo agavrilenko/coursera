@@ -45,9 +45,6 @@ public class MoveToFront {
     }
 
     private char encode(char c) {
-//        if (pos.length < 0) {
-//            throw new IllegalArgumentException("Character array is empty");
-//        }
         char temp = pos[0];
         for (char i = 0; i < pos.length; i++) {
             char ch = pos[i];
