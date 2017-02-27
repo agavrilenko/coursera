@@ -32,6 +32,24 @@ public class BurrowsWheelerTest {
         Assert.assertEquals(ORIGINAL, original);
 
     }
+    @Test
+    public void testBurrowsWheeler_Simple1() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        String s = EXPECTED;
+
+        Constructor<BurrowsWheeler> constructor = BurrowsWheeler.class.getDeclaredConstructor(int.class, String.class);
+        constructor.setAccessible(true);
+
+        Method buildNext = BurrowsWheeler.class.getDeclaredMethod("buildNext");
+        Method getOriginal = BurrowsWheeler.class.getDeclaredMethod("getOriginal");
+        buildNext.setAccessible(true);
+        getOriginal.setAccessible(true);
+        BurrowsWheeler wheeler = constructor.newInstance(3, "BABDDCCA");
+//        Assert.assertEquals(s.length(), wheeler.getLength());
+        buildNext.invoke(wheeler);
+        String original = (String) getOriginal.invoke(wheeler);
+        Assert.assertEquals("BBAADCCD", original);
+
+    }
 
     @Test
     public void testBurrowsWheeler_encode() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -42,6 +60,18 @@ public class BurrowsWheelerTest {
         BurrowsWheeler wheeler = constructor.newInstance();
         String result = (String) encode.invoke(wheeler, ORIGINAL);
         Assert.assertEquals(EXPECTED, result);
+
+    }
+
+    @Test
+    public void testBurrowsWheeler_encode1() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Constructor<BurrowsWheeler> constructor = BurrowsWheeler.class.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        Method encode = BurrowsWheeler.class.getDeclaredMethod("encode", String.class);
+        encode.setAccessible(true);
+        BurrowsWheeler wheeler = constructor.newInstance();
+        String result = (String) encode.invoke(wheeler, "ABDBCABB");
+        Assert.assertEquals("CBBADABB", result);
 
     }
 
