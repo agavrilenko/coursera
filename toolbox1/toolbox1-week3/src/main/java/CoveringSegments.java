@@ -1,18 +1,28 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CoveringSegments {
 
-    private static int[] optimalPoints(Segment[] segments) {
+    static int[] optimalPoints(Segment[] segments) {
         //write your code here
-        int[] points = new int[2 * segments.length];
-        for (int i = 0; i < segments.length; i++) {
-            points[2 * i] = segments[i].start;
-            points[2 * i + 1] = segments[i].end;
+
+
+        ArrayList<Integer> points = new ArrayList<>();
+        Arrays.sort(segments, (o1, o2) -> o1.end - o2.end);
+
+        int right = segments[0].end;
+        points.add(right);
+        for (int i = 1; i < segments.length; i++) {
+            if (!(right >= segments[i].start && right <= segments[i].end)) {
+                right = segments[i].end;
+                points.add(right);
+            }
         }
-        return points;
+        return points.stream().mapToInt(value -> value).toArray();
     }
 
-    private static class Segment {
+    static class Segment {
         int start, end;
 
         Segment(int start, int end) {
@@ -20,6 +30,7 @@ public class CoveringSegments {
             this.end = end;
         }
     }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
