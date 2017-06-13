@@ -2,18 +2,31 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 public class MajorityElement {
-    private static int getMajorityElement(int[] a, int left, int right) {
-        if (left == right) {
-            return -1;
+    static int getMajorityElement(int[] a, int left, int right) {
+
+        Map<Integer, Integer> store = new HashMap<>();
+        for (int i = 0; i < a.length; i++) {
+            Integer count = store.get(a[i]);
+            if (count == null) {
+                store.put(a[i], 1);
+            } else {
+                store.put(a[i], count + 1);
+            }
         }
-        if (left + 1 == right) {
-            return a[left];
+        Collection<Integer> it = store.values();
+        for (Integer in : it) {
+            if (2 * in > a.length) {
+                return 1;
+            }
         }
-        //write your code here
-        return -1;
+
+        return 0;
     }
 
     public static void main(String[] args) {
@@ -23,12 +36,13 @@ public class MajorityElement {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
-        if (getMajorityElement(a, 0, a.length) != -1) {
+        if (getMajorityElement(a, 0, a.length) == 1) {
             System.out.println(1);
         } else {
             System.out.println(0);
         }
     }
+
     static class FastScanner {
         BufferedReader br;
         StringTokenizer st;
