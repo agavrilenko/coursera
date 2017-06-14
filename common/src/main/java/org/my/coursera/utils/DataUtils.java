@@ -1,5 +1,7 @@
 package org.my.coursera.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -26,5 +28,28 @@ public class DataUtils {
             toSort[index] = tmp;
 
         }
+    }
+
+    public static int[] generateSortedList(int n) {
+        List<Integer> out = new ArrayList<>();
+        Random r = new Random(4425252l);
+        for (int i = 0; i < n; i++) {
+            if (r.nextBoolean()) {
+                out.add(i);
+            }
+        }
+        return out.stream().mapToInt(i -> i).toArray();
+    }
+
+    public static int[] generateUnsortedListWithRepeates(int n) {
+        List<Integer> out = new ArrayList<>();
+        Random r = new Random(4425252l);
+        for (int i = 1; i < n + 1; i++) {
+            int nextInt = r.nextInt(i);
+            for (int j = 0; j < nextInt; j++) {
+                out.add(nextInt);
+            }
+        }
+        return out.stream().mapToInt(i -> i).toArray();
     }
 }

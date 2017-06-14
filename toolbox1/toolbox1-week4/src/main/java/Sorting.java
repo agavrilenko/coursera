@@ -8,17 +8,17 @@ import java.util.StringTokenizer;
 public class Sorting {
     private static Random random = new Random();
 
-    private static int[] partition3(int[] a, int l, int r) {
-      //write your code here
+    static int[] partition3(int[] a, int l, int r) {
+        //write your code here
 
 
-      int m1 = l;
-      int m2 = r;
-      int[] m = {m1, m2};
-      return m;
+        int m1 = l;
+        int m2 = r;
+        int[] m = {m1, m2};
+        return m;
     }
 
-    private static int partition2(int[] a, int l, int r) {
+    static int partition2(int[] a, int l, int r) {
         int x = a[l];
         int j = l;
         for (int i = l + 1; i <= r; i++) {
@@ -35,7 +35,59 @@ public class Sorting {
         return j;
     }
 
-    private static void randomizedQuickSort(int[] a, int l, int r) {
+    static void randomizedQuickSort3(int[] a) {
+        shuffle(a);
+        randomizedQuickSort3(a, 0, a.length - 1);
+    }
+
+    static void randomizedQuickSort3(int[] a, int l, int r) {
+        if (l == r) {
+            return;
+        }
+        int pivot = a[l];
+        int left = l + 1, low = l, right = r;
+        int tmp;
+        while (left <= right) {
+            if (pivot == a[left]) {
+                left++;
+                continue;
+            }
+            if (pivot < a[left]) {
+                tmp = a[left];
+                a[left] = a[right];
+                a[right] = tmp;
+                right--;
+                continue;
+            }
+            if (pivot > a[left]) {
+                tmp = a[left];
+                a[left] = a[low];
+                a[low] = tmp;
+                left++;
+                low++;
+                continue;
+            }
+        }
+        if (low > l) {
+            randomizedQuickSort3(a, l, low - 1);
+        }
+        if (r > left) {
+            randomizedQuickSort3(a, left, r);
+        }
+    }
+
+    public static void shuffle(int[] toSort) {
+        Random rnd = new Random(1341234314);
+        for (int i = toSort.length; i > 1; i--) {
+            int index = rnd.nextInt(i);
+            Integer tmp = toSort[i - 1];
+            toSort[i - 1] = toSort[index];
+            toSort[index] = tmp;
+
+        }
+    }
+
+    static void randomizedQuickSort(int[] a, int l, int r) {
         if (l >= r) {
             return;
         }
@@ -56,7 +108,7 @@ public class Sorting {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
-        randomizedQuickSort(a, 0, n - 1);
+        randomizedQuickSort3(a);
         for (int i = 0; i < n; i++) {
             System.out.print(a[i] + " ");
         }
