@@ -29,19 +29,31 @@ class check_brackets {
         BufferedReader reader = new BufferedReader(input_stream);
         String text = reader.readLine();
 
-        Stack<Bracket> opening_brackets_stack = new Stack<Bracket>();
+        System.out.println(processString(text));
+    }
+
+    public static String processString(String text) {
+        Stack<Bracket> bracketStack = new Stack<Bracket>();
         for (int position = 0; position < text.length(); ++position) {
             char next = text.charAt(position);
 
             if (next == '(' || next == '[' || next == '{') {
-                // Process opening bracket, write your code here
+                bracketStack.add(new Bracket(next, position + 1));
             }
 
             if (next == ')' || next == ']' || next == '}') {
-                // Process closing bracket, write your code here
+                if (!bracketStack.isEmpty()) {
+                    Bracket bracket = bracketStack.pop();
+                    if (!bracket.Match(next)) {
+                        return String.valueOf(position + 1);
+                    }
+                } else {
+                    return String.valueOf(position + 1);
+                }
             }
         }
 
         // Printing answer, write your code here
+        return bracketStack.isEmpty() ? "Success" : String.valueOf(bracketStack.elementAt(0).position);
     }
 }
