@@ -1,15 +1,34 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 class Request {
     public Request(int arrival_time, int process_time) {
-        this.arrival_time = arrival_time;
-        this.process_time = process_time;
+        this.arrivalTime = arrival_time;
+        this.processTime = process_time;
     }
 
-    public int arrival_time;
-    public int process_time;
+    public int arrivalTime;
+    public int processTime;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Request)) return false;
+
+        Request request = (Request) o;
+
+        if (arrivalTime != request.arrivalTime) return false;
+        return processTime == request.processTime;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = arrivalTime;
+        result = 31 * result + processTime;
+        return result;
+    }
 }
 
 class Response {
@@ -20,21 +39,67 @@ class Response {
 
     public boolean dropped;
     public int start_time;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Response)) return false;
+
+        Response response = (Response) o;
+
+        if (dropped != response.dropped) return false;
+        return start_time == response.start_time;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (dropped ? 1 : 0);
+        result = 31 * result + start_time;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "dropped=" + dropped +
+                ", start_time=" + start_time +
+                '}';
+    }
 }
 
 class Buffer {
     public Buffer(int size) {
-        this.size_ = size;
-        this.finish_time_ = new ArrayList<Integer>();
+        this.size = size;
+        this.finishTime = new LinkedList<>();
     }
 
     public Response Process(Request request) {
-        // write your code here
-        return new Response(false, -1);
+
+        while (!finishTime.isEmpty()) {
+            int current = finishTime.getFirst();
+            if (current <= request.arrivalTime) {
+                finishTime.removeFirst();
+                continue;
+            }
+            break;
+        }
+
+        if (finishTime.isEmpty()) {
+            finishTime.add(request.arrivalTime + request.processTime);
+            return new Response(false, request.arrivalTime);
+        }
+
+        if (finishTime.size() >= size) {
+            return new Response(true, 0);
+        } else {
+            Integer last = finishTime.getLast();
+            finishTime.add(last + request.processTime);
+            return new Response(false, last);
+        }
     }
 
-    private int size_;
-    private ArrayList<Integer> finish_time_;
+    private int size;
+    private LinkedList<Integer> finishTime;
 }
 
 class process_packages {
@@ -49,7 +114,7 @@ class process_packages {
         return requests;
     }
 
-    private static ArrayList<Response> ProcessRequests(ArrayList<Request> requests, Buffer buffer) {
+    static ArrayList<Response> ProcessRequests(ArrayList<Request> requests, Buffer buffer) {
         ArrayList<Response> responses = new ArrayList<Response>();
         for (int i = 0; i < requests.size(); ++i) {
             responses.add(buffer.Process(requests.get(i)));
