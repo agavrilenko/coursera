@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class BuildHeap {
-    private int[] data;
-    private List<Swap> swaps;
+    int[] data;
+    List<Swap> swaps;
 
     private FastScanner in;
     private PrintWriter out;
@@ -22,36 +22,51 @@ public class BuildHeap {
         int n = in.nextInt();
         data = new int[n];
         for (int i = 0; i < n; ++i) {
-          data[i] = in.nextInt();
+            data[i] = in.nextInt();
         }
     }
 
     private void writeResponse() {
         out.println(swaps.size());
         for (Swap swap : swaps) {
-          out.println(swap.index1 + " " + swap.index2);
+            out.println(swap.index1 + " " + swap.index2);
         }
     }
 
-    private void generateSwaps() {
-      swaps = new ArrayList<Swap>();
-      // The following naive implementation just sorts 
-      // the given sequence using selection sort algorithm
-      // and saves the resulting sequence of swaps.
-      // This turns the given array into a heap, 
-      // but in the worst case gives a quadratic number of swaps.
-      //
-      // TODO: replace by a more efficient implementation
-      for (int i = 0; i < data.length; ++i) {
-        for (int j = i + 1; j < data.length; ++j) {
-          if (data[i] > data[j]) {
-            swaps.add(new Swap(i, j));
-            int tmp = data[i];
-            data[i] = data[j];
-            data[j] = tmp;
-          }
+    void generateSwaps() {
+        swaps = new ArrayList<Swap>();
+        for (int i = data.length / 2 - 1; i >= 0; i--) {
+            siftDown(data, i, swaps);
         }
-      }
+    }
+
+    private void siftDown(int[] data, int i, List<Swap> swaps) {
+
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+        int minInd = i;
+
+        if (l < data.length && data[l] < data[minInd]) {
+            minInd = l;
+        }
+        if (r < data.length && data[r] < data[minInd]) {
+            minInd = r;
+        }
+        if (i != minInd) {
+            int tmp = data[i];
+            data[i] = data[minInd];
+            data[minInd] = tmp;
+            swaps.add(new Swap(i, minInd));
+            siftDown(data, minInd, swaps);
+        }
+
+//        int parent = (i - 1) / 2;
+//        if (data[parent] > data[i]) {
+//            int tmp = data[parent];
+//            data[parent] = data[i];
+//            data[i] = tmp;
+//            siftDown(data, parent, swaps);
+//        }
     }
 
     public void solve() throws IOException {
@@ -70,6 +85,32 @@ public class BuildHeap {
         public Swap(int index1, int index2) {
             this.index1 = index1;
             this.index2 = index2;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Swap)) return false;
+
+            Swap swap = (Swap) o;
+
+            if (index1 != swap.index1) return false;
+            return index2 == swap.index2;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = index1;
+            result = 31 * result + index2;
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "Swap{" +
+                    "index1=" + index1 +
+                    ", index2=" + index2 +
+                    '}';
         }
     }
 
