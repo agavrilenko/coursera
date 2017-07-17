@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 public class JobQueue {
     private int numWorkers;
-    private int[] jobs;
+    private long[] jobs;
 
     private int[] assignedWorker;
     private long[] startTime;
@@ -15,7 +15,7 @@ public class JobQueue {
     private FastScanner in;
     private PrintWriter out;
 
-    public JobQueue(int numWorkers, int[] jobs) {
+    public JobQueue(int numWorkers, long[] jobs) {
         this.numWorkers = numWorkers;
         this.jobs = jobs;
     }
@@ -38,7 +38,7 @@ public class JobQueue {
     private void readData() throws IOException {
         numWorkers = in.nextInt();
         int m = in.nextInt();
-        jobs = new int[m];
+        jobs = new long[m];
         for (int i = 0; i < m; ++i) {
             jobs[i] = in.nextInt();
         }
@@ -72,7 +72,7 @@ public class JobQueue {
         startTime = new long[jobs.length];
         long[] nextFreeTime = new long[numWorkers];
         for (int i = 0; i < jobs.length; i++) {
-            int duration = jobs[i];
+            long duration = jobs[i];
             int bestWorker = 0;
             for (int j = 0; j < numWorkers; ++j) {
                 if (nextFreeTime[j] < nextFreeTime[bestWorker])
@@ -104,13 +104,15 @@ public class JobQueue {
         }
 
         private void siftUp(int i) {
+
             int parent = (i - 1) / 2;
             int ind = i;
-            while (i > 0 && threads[ind].compareTo(threads[parent]) < 0) {
+            while (ind > 0 && threads[ind].compareTo(threads[parent]) < 0) {
                 MyThread tmp = threads[ind];
                 threads[ind] = threads[parent];
                 threads[parent] = tmp;
                 ind = parent;
+                parent = (ind - 1) / 2;
             }
         }
 
@@ -128,10 +130,10 @@ public class JobQueue {
             int l = 2 * i + 1;
             int r = 2 * i + 2;
 
-            if (l <= length && threads[l].compareTo(threads[minInd]) < 0) {
+            if (l < length && threads[l].compareTo(threads[minInd]) < 0) {
                 minInd = l;
             }
-            if (r <= length && threads[r].compareTo(threads[minInd]) < 0) {
+            if (r < length && threads[r].compareTo(threads[minInd]) < 0) {
                 minInd = r;
             }
             if (minInd != i) {
