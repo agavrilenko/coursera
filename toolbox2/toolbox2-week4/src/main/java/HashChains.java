@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -12,11 +12,11 @@ public class HashChains {
     private FastScanner in;
     private PrintWriter out;
     // store all strings in one list
-    private List<String> elems;
+    private LinkedList<String>[] elems;
     // for hash function
     private int bucketCount;
-    private int prime = 1000000007;
-    private int multiplier = 263;
+    private static int prime = 1000000007;
+    private static int multiplier = 263;
 
     public static void main(String[] args) throws IOException {
         new HashChains().processQueries();
@@ -24,9 +24,10 @@ public class HashChains {
 
     private int hashFunc(String s) {
         long hash = 0;
-        for (int i = s.length() - 1; i >= 0; --i)
+        for (int i = s.length() - 1; i >= 0; --i) {
             hash = (hash * multiplier + s.charAt(i)) % prime;
-        return (int)hash % bucketCount;
+        }
+        return (int) hash % bucketCount;
     }
 
     private Query readQuery() throws IOException {
@@ -47,22 +48,35 @@ public class HashChains {
     }
 
     private void processQuery(Query query) {
+
+        int index = 0;
         switch (query.type) {
             case "add":
-                if (!elems.contains(query.s))
-                    elems.add(0, query.s);
+                index = hashFunc(query.s);
+                if (elems[index] == null) {
+                    elems[index] = new LinkedList<>();
+                }
+                if (!elems[index].contains(query.s)) {
+                    elems[index].add(0, query.s);
+                }
                 break;
             case "del":
-                if (elems.contains(query.s))
-                    elems.remove(query.s);
+                index = hashFunc(query.s);
+                if (elems[index] != null) {
+                    elems[index].remove(query.s);
+                }
                 break;
             case "find":
-                writeSearchResult(elems.contains(query.s));
+                index = hashFunc(query.s);
+                writeSearchResult(elems[index] != null && elems[index].contains(query.s));
                 break;
             case "check":
-                for (String cur : elems)
-                    if (hashFunc(cur) == query.ind)
+                List<String> list = elems[query.ind];
+                if (list != null) {
+                    for (String cur : list) {
                         out.print(cur + " ");
+                    }
+                }
                 out.println();
                 // Uncomment the following if you want to play with the program interactively.
                 // out.flush();
@@ -73,10 +87,10 @@ public class HashChains {
     }
 
     public void processQueries() throws IOException {
-        elems = new ArrayList<>();
         in = new FastScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out));
         bucketCount = in.nextInt();
+        elems = new LinkedList[bucketCount];
         int queryCount = in.nextInt();
         for (int i = 0; i < queryCount; ++i) {
             processQuery(readQuery());
