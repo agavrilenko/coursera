@@ -17,6 +17,7 @@ public class is_bst_hard {
                 tok = new StringTokenizer(in.readLine());
             return tok.nextToken();
         }
+
         int nextInt() throws IOException {
             return Integer.parseInt(next());
         }
@@ -48,8 +49,12 @@ public class is_bst_hard {
         }
 
         boolean isBinarySearchTree() {
-          // Implement correct algorithm here
-          return true;
+            // Implement correct algorithm here
+            return true;
+        }
+
+        public boolean solve() {
+            return false;
         }
     }
 
@@ -63,6 +68,7 @@ public class is_bst_hard {
             }
         }, "1", 1 << 26).start();
     }
+
     public void run() throws IOException {
         IsBST tree = new IsBST();
         tree.read();

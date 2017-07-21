@@ -23,6 +23,10 @@ public class is_bst {
     }
 
     public class IsBST {
+        public boolean solve() {
+            return false;
+        }
+
         class Node {
             int key;
             int left;
