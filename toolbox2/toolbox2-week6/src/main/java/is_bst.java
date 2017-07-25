@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class is_bst {
-    class FastScanner {
+    static class FastScanner {
         StringTokenizer tok = new StringTokenizer("");
         BufferedReader in;
 
@@ -17,25 +17,28 @@ public class is_bst {
                 tok = new StringTokenizer(in.readLine());
             return tok.nextToken();
         }
+
         int nextInt() throws IOException {
             return Integer.parseInt(next());
         }
     }
 
-    public class IsBST {
-        public boolean solve() {
-            return false;
-        }
+    public static class IsBST {
 
-        class Node {
+        static class Node {
             int key;
             int left;
             int right;
+            int max;
+            int min;
 
             Node(int key, int left, int right) {
                 this.left = left;
                 this.right = right;
                 this.key = key;
+                this.max = Integer.MIN_VALUE;
+                this.min = Integer.MAX_VALUE;
+
             }
         }
 
@@ -47,13 +50,98 @@ public class is_bst {
             nodes = in.nextInt();
             tree = new Node[nodes];
             for (int i = 0; i < nodes; i++) {
-                tree[i] = new Node(in.nextInt(), in.nextInt(), in.nextInt());
+                Node node = new Node(in.nextInt(), in.nextInt(), in.nextInt());
+                tree[i] = node;
             }
         }
 
         boolean isBinarySearchTree() {
-          // Implement correct algorithm here
-          return true;
+            if (tree.length < 1) {
+                return true;
+            }
+            return isBinarySearchTree(tree[0]);
+        }
+
+        boolean isBinarySearchTree(Node node) {
+
+//            int left = node.left;
+//            int right = node.right;
+//            if (left != -1) {
+            try {
+                checkMax(tree[0]);
+                checkMin(tree[0]);
+            } catch (RuntimeException e) {
+                if (e.getMessage().equals("INCORRECT")) {
+                    return false;
+                }
+                throw e;
+            }
+//            }
+//            if (right != -1) {
+//                checkMin(tree[right]);
+//                checkMax(tree[right]);
+//            }
+//            for (int i = 0; i < tree.length; i++) {
+//                Node n = tree[i];
+//                if (n.right != -1 && n.key >= checkMin(tree[n.right])) {
+//                    return false;
+//                }
+//                if (n.left != -1 && n.key < checkMax(tree[n.left])) {
+//                    return false;
+//                }
+//            }
+
+            return true;
+        }
+
+        private int checkMax(Node node) {
+
+            if (node.max > Integer.MIN_VALUE) {
+                return node.max;
+            }
+            int left = node.left;
+            int right = node.right;
+            int key = node.key;
+            int max = key;
+            if (left != -1) {
+                max = checkMax(tree[left]);
+                if (max > key) {
+                    throw new RuntimeException("INCORRECT");
+                }
+                max = max > key ? max : key;
+            }
+
+            if (right != -1) {
+                max = checkMax(tree[right]);
+                max = max > key ? max : key;
+            }
+            node.max = max;
+            return max;
+        }
+
+        private int checkMin(Node node) {
+
+            if (node.min < Integer.MAX_VALUE) {
+                return node.min;
+            }
+            int left = node.left;
+            int right = node.right;
+            int key = node.key;
+            int min = key;
+
+            if (right != -1) {
+                min = checkMin(tree[right]);
+                if (key > min) {
+                    throw new RuntimeException("INCORRECT");
+                }
+                min = min < key ? min : key;
+            }
+
+            if (left != -1) {
+                min = checkMin(tree[left]);
+                min = min < key ? min : key;
+            }
+            return min;
         }
     }
 
@@ -67,10 +155,11 @@ public class is_bst {
             }
         }, "1", 1 << 26).start();
     }
+
     public void run() throws IOException {
         IsBST tree = new IsBST();
         tree.read();
-        if (tree.solve()) {
+        if (tree.isBinarySearchTree()) {
             System.out.println("CORRECT");
         } else {
             System.out.println("INCORRECT");
