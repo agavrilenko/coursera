@@ -64,9 +64,6 @@ public class is_bst {
 
         boolean isBinarySearchTree(Node node) {
 
-//            int left = node.left;
-//            int right = node.right;
-//            if (left != -1) {
             try {
                 checkMax(tree[0]);
                 checkMin(tree[0]);
@@ -76,21 +73,6 @@ public class is_bst {
                 }
                 throw e;
             }
-//            }
-//            if (right != -1) {
-//                checkMin(tree[right]);
-//                checkMax(tree[right]);
-//            }
-//            for (int i = 0; i < tree.length; i++) {
-//                Node n = tree[i];
-//                if (n.right != -1 && n.key >= checkMin(tree[n.right])) {
-//                    return false;
-//                }
-//                if (n.left != -1 && n.key < checkMax(tree[n.left])) {
-//                    return false;
-//                }
-//            }
-
             return true;
         }
 

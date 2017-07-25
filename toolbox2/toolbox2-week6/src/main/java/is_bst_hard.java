@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class is_bst_hard {
-    class FastScanner {
+    static class FastScanner {
         StringTokenizer tok = new StringTokenizer("");
         BufferedReader in;
 
@@ -23,16 +23,20 @@ public class is_bst_hard {
         }
     }
 
-    public class IsBST {
-        class Node {
+    public static class IsBST {
+        static class Node {
             int key;
             int left;
             int right;
+            int min;
+            int max;
 
             Node(int key, int left, int right) {
                 this.left = left;
                 this.right = right;
                 this.key = key;
+                this.max = Integer.MIN_VALUE;
+                this.min = Integer.MAX_VALUE;
             }
         }
 
@@ -49,12 +53,73 @@ public class is_bst_hard {
         }
 
         boolean isBinarySearchTree() {
-            // Implement correct algorithm here
+            if (tree.length < 1) {
+                return true;
+            }
+            return isBinarySearchTree(tree[0]);
+        }
+
+        boolean isBinarySearchTree(Node node) {
+
+            try {
+                checkMax(tree[0]);
+                checkMin(tree[0]);
+            } catch (RuntimeException e) {
+                if (e.getMessage().equals("INCORRECT")) {
+                    return false;
+                }
+                throw e;
+            }
             return true;
         }
 
-        public boolean solve() {
-            return false;
+        private int checkMax(Node node) {
+
+            if (node.max > Integer.MIN_VALUE) {
+                return node.max;
+            }
+            int left = node.left;
+            int right = node.right;
+            int key = node.key;
+            int max = key;
+            if (left != -1) {
+                max = checkMax(tree[left]);
+                if (max >= key) {
+                    throw new RuntimeException("INCORRECT");
+                }
+                max = max > key ? max : key;
+            }
+
+            if (right != -1) {
+                max = checkMax(tree[right]);
+                max = max > key ? max : key;
+            }
+            node.max = max;
+            return max;
+        }
+
+        private int checkMin(Node node) {
+
+            if (node.min < Integer.MAX_VALUE) {
+                return node.min;
+            }
+            int left = node.left;
+            int right = node.right;
+            int key = node.key;
+            int min = key;
+
+            if (right != -1) {
+                min = checkMin(tree[right]);
+                if (key > min) {
+                    throw new RuntimeException("INCORRECT");
+                }
+                min = min < key ? min : key;
+            }
+            if (left != -1) {
+                min = checkMin(tree[left]);
+                min = min < key ? min : key;
+            }
+            return min;
         }
     }
 
