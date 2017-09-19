@@ -5,17 +5,25 @@ public class Acyclicity {
 
     private static boolean[] visited;
     private static boolean[] stack;
-    private static boolean hasCycle = false;
+    private static boolean hasCycle;
 
     static int acyclic(ArrayList<Integer>[] adj) {
         hasCycle = false;
         visited = new boolean[adj.length];
         stack = new boolean[adj.length];
 
-        ArrayList<Integer> current = adj[0];
-        visited[0] = true;
-        stack[0] = true;
-        dfs(current, adj);
+        for (int i = 0; i < adj.length; i++) {
+            if (visited[i]) {
+                continue;
+            }
+            if (hasCycle) {
+                break;
+            }
+            visited[i] = true;
+            stack[i] = true;
+            dfs(adj[i], adj);
+            stack[i] = false;
+        }
 
         return hasCycle ? 1 : 0;
     }

@@ -23,6 +23,21 @@ public class AcyclicityTest {
     }
 
     @Test
+    public void testAcyclic5() {
+        ArrayList<Integer>[] adj = new ArrayList[4];
+        adj[0] = new ArrayList<>();
+        adj[1] = new ArrayList<>();
+        adj[2] = new ArrayList<>();
+        adj[3] = new ArrayList<>();
+        adj[1].add(0);
+        adj[1].add(2);
+        adj[2].add(3);
+        adj[3].add(1);
+        Assert.assertEquals(1, Acyclicity.acyclic(adj));
+    }
+
+
+    @Test
     public void testAcyclic3() {
         ArrayList<Integer>[] adj = new ArrayList[4];
         adj[0] = new ArrayList<>();
