@@ -4,49 +4,47 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Dijkstra {
-    static long distance(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, int t) {
+    static long distance1(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, int t) {
         if (adj.length <= 1) {
             return 0;
         }
         if (s == t) {
             return 0;
         }
-        ArrayList<Edge>[] vertices = new ArrayList[adj.length];
+        ArrayList<Edge>[] graph = new ArrayList[adj.length];
         boolean[] visited = new boolean[adj.length];
         int[] path = new int[adj.length];
-        long[] costs = new long[adj.length];
+        long[] weights = new long[adj.length];
         PriorityQueue<Edge> queue = new PriorityQueue<>();
         for (int i = 0; i < adj.length; i++) {
-            vertices[i] = new ArrayList<>(i);
+            weights[i] = Long.MAX_VALUE;
+            graph[i] = new ArrayList<>();
             path[i] = -1;
-            costs[i] = Long.MAX_VALUE;
             for (int j = 0; j < adj[i].size(); j++) {
-                Integer to = adj[i].get(j);
-                Integer wight = cost[i].get(j);
-                vertices[i].add(new Edge(i, to, wight));
+                graph[i].add(new Edge(i, adj[i].get(j), cost[i].get(j)));
             }
         }
 
-        queue.addAll(vertices[s]);
+        queue.addAll(graph[s]);
         visited[s] = true;
-        costs[s] = 0;
+        weights[s] = 0;
         while (queue.size() > 0) {
             Edge e = queue.remove();
-            long weightFrom = costs[e.from] + e.weight;
-            if (weightFrom < costs[e.to]) {
-                costs[e.to] = weightFrom;
+            long weight = weights[e.from] + e.weight;
+            if (weight < weights[e.to]) {
+                weights[e.to] = weight;
                 path[e.to] = e.from;
             }
             if (!visited[e.to]) {
-                queue.addAll(vertices[e.to]);
+                queue.addAll(graph[e.to]);
                 visited[e.to] = true;
             }
         }
-        return costs[t] != Long.MAX_VALUE ? costs[t] : -1L;
+        return weights[t] != Long.MAX_VALUE ? weights[t] : -1L;
     }
 
 
-    public static int distance1(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, int t) {
+    public static int distance(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, int t) {
         int n = adj.length;
         // Initialize dist[] by inf, except source s.
         // dist [v] will be an upper bound on the actual distance from S to v.
@@ -78,7 +76,7 @@ public class Dijkstra {
         return dist[t] == Integer.MAX_VALUE ? -1 : dist[t];
     }
 
-    static class Edge implements Comparable<Edge> {
+    private static class Edge implements Comparable<Edge> {
         int from, to;
         Integer weight;
 
@@ -143,23 +141,25 @@ public class Dijkstra {
      * Runtime if using array: O(|V|^2).</br>
      * Runtime if using PriorityQueue: O((|V| + |E|) * log|V|).</br>
      * BZ: Priority Queue stores same integer?<ul>
-     *     <li>when comparing dist[v], will stop by same v...
-     *     <li>=> Wrap {v, dist-value}; sort PQ on dist-value.
-     *     <li>=> Even offering same v, the dist-value differs.</ul>
+     * <li>when comparing dist[v], will stop by same v...
+     * <li>=> Wrap {v, dist-value}; sort PQ on dist-value.
+     * <li>=> Even offering same v, the dist-value differs.</ul>
      */
     private static class DistNode {
         int v;
         int dist;
+
         public DistNode(int v, int d) {
             this.v = v;
             this.dist = d;
         }
     }
+
     private static int distance_faster(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, int t) {
         int n = adj.length;
         int[] dist = new int[n];
         boolean[] visited = new boolean[n];
-        PriorityQueue<DistNode> pq = new PriorityQueue<>(new Comparator<DistNode>(){
+        PriorityQueue<DistNode> pq = new PriorityQueue<>(new Comparator<DistNode>() {
             @Override
             public int compare(DistNode v1, DistNode v2) {
                 // BZ: v1.dist - v2.dist? if v2.dist is +inf? overflow!
@@ -172,7 +172,7 @@ public class Dijkstra {
         }
         dist[0] = 0;
         pq.offer(new DistNode(0, 0));
-        while (! pq.isEmpty()) {
+        while (!pq.isEmpty()) {
             DistNode u = pq.poll();
             if (visited[u.v]) continue;
             visited[u.v] = true;

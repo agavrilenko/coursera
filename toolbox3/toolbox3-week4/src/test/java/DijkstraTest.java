@@ -1,5 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
+import org.my.coursera.utils.DataUtils;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class DijkstraTest {
         for (int i = 0; i < in.length; i++) {
             ArrayList<Integer>[] adj = new ArrayList[size[i]];
             ArrayList<Integer>[] w = new ArrayList[size[i]];
-            buildGraph(in[i], adj, w);
+            DataUtils.buildGraph(in[i], adj, w);
             Assert.assertEquals(out[i], Dijkstra.distance(adj, w, points[i][0], points[i][1]));
         }
 
@@ -59,25 +60,8 @@ public class DijkstraTest {
                 "6 4 0",
 
         };
-        buildGraph(toParse, adj, w);
+        DataUtils.buildGraph(toParse, adj, w);
         Assert.assertEquals(6, Dijkstra.distance(adj, w, 0, 3));
-
-    }
-
-    static void buildGraph(String[] toParse, ArrayList<Integer>[] adj, ArrayList<Integer>[] cost) {
-        for (int i = 0; i < adj.length; i++) {
-            adj[i] = new ArrayList<>();
-            cost[i] = new ArrayList<>();
-        }
-        for (String line : toParse) {
-            String[] parsed = line.split(" ");
-            int x = Integer.valueOf(parsed[0]) - 1;
-            int y = Integer.valueOf(parsed[1]) - 1;
-            int w = Integer.valueOf(parsed[2]);
-
-            adj[x].add(y);
-            cost[x].add(w);
-        }
 
     }
 
@@ -92,7 +76,7 @@ public class DijkstraTest {
                 "2 3 2",
                 "1 3 5"
         };
-        buildGraph(toParse, adj, w);
+        DataUtils.buildGraph(toParse, adj, w);
         Assert.assertEquals(5, Dijkstra.distance(adj, w, 3, 2));
 
     }
