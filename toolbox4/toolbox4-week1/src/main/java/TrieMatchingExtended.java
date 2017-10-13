@@ -28,7 +28,7 @@ public class TrieMatchingExtended implements Runnable {
 			case 'C': return 1;
 			case 'G': return 2;
 			case 'T': return 3;
-			default: assert (false); return Node.NA;
+			default: assert (false); return Node1.NA;
 		}
 	}
 

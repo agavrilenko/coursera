@@ -25,7 +25,7 @@ public class SuffixTree {
         }
     }
 
-    // Build a suffix tree of the string text and return a list
+    // Build a suffix tree of the string text and return a adj
     // with all of the labels of its edges (the corresponding 
     // substrings of the text) in any order.
     public List<String> computeSuffixTreeEdges(String text) {
