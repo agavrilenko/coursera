@@ -46,6 +46,7 @@ public class SuffixArray {
     // suffix of text starts.
     public int[] computeSuffixArray(String text) {
         // write your code here
+        return null;
     }
 
 

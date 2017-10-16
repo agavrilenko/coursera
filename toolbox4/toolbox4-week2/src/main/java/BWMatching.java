@@ -42,6 +42,7 @@ public class BWMatching {
     // information we get from the preprocessing stage - starts and occ_counts_before.
     int CountOccurrences(String pattern, String bwt, Map<Character, Integer> starts, Map<Character, int[]> occ_counts_before) {
         // Implement this function yourself
+        return -1;
     }
 
     static public void main(String[] args) throws IOException {
