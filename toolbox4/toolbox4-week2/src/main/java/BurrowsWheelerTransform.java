@@ -78,6 +78,7 @@ public class BurrowsWheelerTransform {
             order[newIndex] = previousOrder[i];
         }
         int count = from;
+        //remove recursion StackOverFlow on number of symbols > 1000000
         for (int i = 0; i < aux.length; i++) {
             if (aux[i] > 0) {
                 sort(order, in, count, count + aux[i], depth + 1, previousOrder);
