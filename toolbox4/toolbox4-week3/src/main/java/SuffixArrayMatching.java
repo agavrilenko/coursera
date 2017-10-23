@@ -30,7 +30,7 @@ public class SuffixArrayMatching {
 
         // write your code here
 
-        return suffixArray;
+        return null;
     }
 
     public List<Integer> findOccurrences(String pattern, String text, int[] suffixArray) {
@@ -38,11 +38,11 @@ public class SuffixArrayMatching {
 
         // write your code here
 
-        return result;
+        return null;
     }
 
     static public void main(String[] args) throws IOException {
-        new SuffixArrayMatching_ml().run();
+        new SuffixArrayMatching().run();
     }
 
     public void print(boolean[] x) {

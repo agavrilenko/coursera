@@ -30,7 +30,30 @@ public class KnuthMorrisPratt {
     // the pattern starts in the text.
     public List<Integer> findPattern(String pattern, String text) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        // Implement this function yourself
+
+        char[] p = (pattern + "$" + text).toCharArray();
+        int[] s = new int[p.length];
+        int border = 0;
+
+        for (int i = 1; i < p.length; i++) {
+            while (border > 0 && p[i] != p[border]) {
+                border = s[border - 1];
+            }
+            if (p[i] == p[border]) {
+                border = border + 1;
+            } else {
+                border = 0;
+            }
+            s[i] = border;
+        }
+
+        int length = pattern.length();
+        for (int i = length + 1; i < p.length; i++) {
+            if (s[i] == length) {
+                result.add(i - 2 * length);
+            }
+        }
+
         return result;
     }
 
