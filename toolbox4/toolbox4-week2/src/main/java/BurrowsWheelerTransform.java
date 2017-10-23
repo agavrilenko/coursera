@@ -42,16 +42,19 @@ public class BurrowsWheelerTransform {
 
     private void sort(int[] order, char[] in) {
 
-        int from = 0;
-        int to = order.length;
-        int depth = 0;
         int[] previousOrder = new int[order.length];
-        sort(order, in, from, to, depth, previousOrder);
-
+        int[] indexes = new int[order.length];
+        int depth = 0;
+        int[] offset = new int[5 + 1];
+        sort(order, in, 0, order.length, depth, previousOrder, offset, indexes);
+//        System.out.println("Time spent " + finish);
     }
 
+    long start = System.currentTimeMillis();
+    long finish = 0;
+
     //$-0, A-1, C-2, G-3, T-4
-    private void sort(int[] order, char[] in, int from, int to, int depth, int[] previousOrder) {
+    private void sort(int[] order, char[] in, int from, int to, int depth, int[] previousOrder, int[] offset, int[] indexes) {
 
         if (to - from <= 1) {
             return;
@@ -64,26 +67,29 @@ public class BurrowsWheelerTransform {
             aux[getIndex(at)]++;
         }
         //needs 1 position more than in aux array
-        int[] offset = new int[aux.length + 1];
+
         offset[0] = from;
 
         for (int i = 0; i < aux.length; i++) {
             offset[i + 1] = offset[i] + aux[i];
         }
 
+        start = System.currentTimeMillis();
         for (int i = from; i < to; i++) {
             char at = getCharAtPosition(in, previousOrder[i], depth);
             int index = getIndex(at);
             int newIndex = offset[index]++;
             order[newIndex] = previousOrder[i];
+            indexes[newIndex] = index;
         }
+        finish += System.currentTimeMillis() - start;
         int count = from;
         //remove recursion StackOverFlow on number of symbols > 1000000
         for (int i = 0; i < aux.length; i++) {
-            if (aux[i] > 0) {
-                sort(order, in, count, count + aux[i], depth + 1, previousOrder);
-                count += aux[i];
+            if (aux[i] > 1) {
+                sort(order, in, count, count + aux[i], depth + 1, previousOrder, offset, indexes);
             }
+            count += aux[i];
         }
 
     }
