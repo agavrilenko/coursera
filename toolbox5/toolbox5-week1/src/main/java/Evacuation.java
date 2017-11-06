@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -15,9 +16,80 @@ public class Evacuation {
         System.out.println(maxFlow(graph, 0, graph.size() - 1));
     }
 
-    private static int maxFlow(FlowGraph graph, int from, int to) {
+    static int maxFlow(FlowGraph graph, int from, int to) {
+
         int flow = 0;
-        /* your code goes here */
+        int[] path = new int[graph.size()];
+        int[] pathEdge = new int[graph.size()];
+        boolean[] visited = new boolean[graph.size()];
+        boolean[] visitedSrc = new boolean[graph.size()];
+        LinkedList<Integer> queue = new LinkedList<>();
+        boolean newPathAdded = true;
+        Integer vertex;
+        int[] pathSrc = new int[graph.size()];
+        for (int i = 0; i < pathSrc.length; i++) {
+            pathSrc[i] = -1;
+            visitedSrc[i] = false;
+        }
+        while (newPathAdded) {
+            System.arraycopy(pathSrc, 0, path, 0, graph.size());
+            System.arraycopy(visitedSrc, 0, visited, 0, graph.size());
+            queue.add(from);
+            path[from] = -1;
+            newPathAdded = false;
+            while (!queue.isEmpty()) {
+                vertex = queue.removeFirst();
+                if (visited[vertex]) {
+                    continue;
+                }
+                visited[vertex] = true;
+                if (vertex == to) {
+                    queue.clear();
+                    break;
+                }
+                List<Integer> list = graph.graph[vertex];
+                for (Integer i : list) {
+                    Edge edge = graph.edges.get(i);
+                    if (visited[edge.to] || edge.capacity == edge.flow) {
+                        continue;
+                    }
+                    path[edge.to] = vertex;
+                    if (edge.to == to) {
+                        queue.clear();
+                        break;
+                    }
+                    queue.add(edge.to);
+                }
+            }
+            //min path
+            int min = Integer.MAX_VALUE;
+            int ind = to;
+            while (path[ind] != -1) {
+                List<Integer> list = graph.graph[path[ind]];
+                int currentAvailableFlow = -1;
+                for (Integer i : list) {
+                    Edge edge = graph.edges.get(i);
+                    int available = edge.capacity - edge.flow;
+                    if (edge.to == ind && available > 0) {
+                        currentAvailableFlow = currentAvailableFlow >= available ? currentAvailableFlow : available;
+                        pathEdge[path[ind]] = i;
+                    }
+                }
+                min = min > currentAvailableFlow ? currentAvailableFlow : min;
+                ind = path[ind];
+            }
+            if (min < Integer.MAX_VALUE) {
+                flow += min;
+                newPathAdded = true;
+
+                ind = path[to];
+                while (ind != -1) {
+                    graph.addFlow(pathEdge[ind], min);
+                    ind = path[ind];
+                }
+            }
+        }
+
         return flow;
     }
 
@@ -42,6 +114,14 @@ public class Evacuation {
             this.capacity = capacity;
             this.flow = 0;
         }
+
+        @Override
+        public String toString() {
+            return "Edge{" +
+                    from + "->" + to +
+                    ", [" + capacity +
+                    "," + flow + "]}";
+        }
     }
 
     /* This class implements a bit unusual scheme to store the graph edges, in order
@@ -54,9 +134,10 @@ public class Evacuation {
         private List<Integer>[] graph;
 
         public FlowGraph(int n) {
-            this.graph = (ArrayList<Integer>[])new ArrayList[n];
-            for (int i = 0; i < n; ++i)
+            this.graph = (ArrayList<Integer>[]) new ArrayList[n];
+            for (int i = 0; i < n; ++i) {
                 this.graph[i] = new ArrayList<>();
+            }
             this.edges = new ArrayList<>();
         }
 

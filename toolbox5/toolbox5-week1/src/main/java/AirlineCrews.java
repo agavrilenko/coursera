@@ -6,12 +6,12 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class MaxMatching {
+public class AirlineCrews {
     private FastScanner in;
     private PrintWriter out;
 
     public static void main(String[] args) throws IOException {
-        new MaxMatching().solve();
+        new AirlineCrews().solve();
     }
 
     public void solve() throws IOException {
