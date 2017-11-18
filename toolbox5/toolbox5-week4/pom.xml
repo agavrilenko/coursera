@@ -3,31 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>coursera</artifactId>
+        <artifactId>toolbox5</artifactId>
         <groupId>my.org</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <modules>
-        <module>toolbox5-week1</module>
-        <module>toolbox5-week2</module>
-        <module>toolbox5-week3</module>
-        <module>toolbox5-week4</module>
-    </modules>
-    <artifactId>toolbox5</artifactId>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
+    <artifactId>toolbox5-week4</artifactId>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -39,4 +21,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 </project>
