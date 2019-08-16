@@ -1,0 +1,16 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "coursera project for react js",
+  "main": "src\\main\\resources\\index.html",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "author": "gavrilol",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
