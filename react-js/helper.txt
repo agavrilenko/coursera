@@ -1,0 +1,4 @@
+npm init
+npm install lite-server --save-dev
+npm start
+npm install bootstrap@4.0.0
