@@ -8,3 +8,6 @@ git status
 git commit -m "comment"
 git add .
 git push -u origin master
+npm install bootstrap-social@5.1.1 --save
+npm install font-awesome@4.7.0 --save
+
