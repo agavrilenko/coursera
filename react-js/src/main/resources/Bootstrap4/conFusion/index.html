@@ -18,32 +18,34 @@
 <body>
 <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
     <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand" href="#"><img src="img/logo.png" height="30" width="41"></a>
         <div class="collapse navbar-collapse" id="Navbar">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="./aboutus.html"><span class="fa fa-info fa-lg"></span> About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index.html"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/aboutus.html"><span class="fa fa-info fa-lg"></span> About</a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-list fa-lg"></span> Menu</a></li>
-                <li class="nav-item"><a class="nav-link" href="/contactus.html"><span class="fa fa-address-card fa-lg"></span> Contact</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/contactus.html"><span class="fa fa-address-card fa-lg"></span> Contact</a></li>
             </ul>
         </div>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 </nav>
-
 <header class="jumbotron">
     <div class="container">
         <div class="row row-header">
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-md-6">
                 <h1>Ristorante con Fusion</h1>
-                <p class="d-sm-block d-none">We take inspiration from the World's best cuisines, and create a unique
+                <p >We take inspiration from the World's best cuisines, and create a unique
                     fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
             </div>
-            <div class="col-12 col-sm align-self-center">
+            <div class="col-12 col-sm-12 col-md-3">
                 <img src="img/logo.png" class="img-fluid">
-
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 btn-group " role="group">
+                <a role="button" class="d-flex align-self-center btn btn-warning h-md-25  " href="#reservetable">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reserve
+                    Table&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
             </div>
         </div>
     </div>
@@ -59,7 +61,8 @@
                 <img class="d-flex mr-3 img-thumbnail align-self-center"
                      src="img/uthappizza.png" alt="Uthappizza">
                 <div class="media-body">
-                    <h2 class="mt-0">Uthappizza <span class="badge badge-danger">HOT</span> <span class="badge badge-pill badge-secondary">$4.99</span></h2>
+                    <h2 class="mt-0">Uthappizza <span class="badge badge-danger">HOT</span> <span
+                            class="badge badge-pill badge-secondary">$4.99</span></h2>
                     <p class="d-none d-sm-block">A unique combination of Indian Uthappam (pancake) and
                         Italian pizza, topped with Cerignola olives, ripe vine
                         cherry tomatoes, Vidalia onion, Guntur chillies and
@@ -71,14 +74,21 @@
 
 
     <div class="row row-content align-items-center">
-        <div class="col-12 col-sm-4 col-md-3">
+        <div class="col-12 col-sm-4 col-md-3 order-dm-first">
             <h3>This Month's Promotions</h3>
         </div>
-        <div class="col col-sm col-md">
-            <h2>Weekend Grand Buffet</h2>
-            <p class="d-sm-block d-none">Featuring mouthwatering combinations with a choice of five different salads,
-                six enticing appetizers, six main entrees and five choicest desserts. Free flowing bubbly and soft
-                drinks. All for just $19.99 per person </p>
+        <div class="col col-sm order-sm-last col-md ">
+            <div class="media">
+                <div class="media-body ">
+                    <h2 class="mt-0">Weekend Grand Buffet <span class="badge badge-danger">NEW</span></h2>
+                    <p class="d-none d-sm-block">Featuring mouthwatering combinations with a choice of five different
+                        salads, six enticing appetizers, six main entrees and five choicest desserts. Free flowing
+                        bubbly and soft
+                        drinks. All for just $19.99 per person</p>
+                </div>
+                <img class="d-flex ml-3 img-thumbnail align-right"
+                     src="img/buffet.png" alt="Buffet">
+            </div>
         </div>
     </div>
 
@@ -102,53 +112,111 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="row row-content align-items-center">
+        <div class="col-12 offset-sm-2 col-sm-8 ">
+            <div class="card">
+                <h3 class="card-header bg-warning text-white">Facts At a Glance</h3>
+                <div class="card-body">
 
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-4 offset-1 col-sm-2">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Menu</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                    <form>
+                        <div class="form-group row ">
+                            <label class="col-md-2 col-form-label">Number of Guests</label>
+                            <div class="offset-md-1 col-12 col-md-6 ">
+                                <div class="row align-items-center ">
+                                    <div class="col-2 radio align-items-center">
+                                        <label class="col-form-label"><input type="radio" name="optradio" checked>1</label>
+                                    </div>
+                                    <div class="col-2 radio align-items-center">
+                                        <label class="col-form-label"><input type="radio" name="optradio" checked>2</label>
+                                    </div>
+                                    <div class="col-2 radio align-items-center">
+                                        <label class="col-form-label"><input type="radio" name="optradio" checked>3</label>
+                                    </div>
+                                    <div class="col-2 radio align-items-center">
+                                        <label class="col-form-label"><input type="radio" name="optradio" checked>4</label>
+                                    </div>
+                                    <div class="col-2 radio align-items-center">
+                                        <label class="col-form-label"><input type="radio" name="optradio" checked>5</label>
+                                    </div>
+                                    <div class="col-2 radio align-items-center">
+                                        <label class="col-form-label"><input type="radio" name="optradio" checked>6</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dateandtime" class="col-12 col-md-2 col-form-label">Date and Time</label>
+                            <div class="col-5 col-md-3">
+                                <input type="tel" class="form-control" id="dateandtime" name="date" placeholder="Date">
+                            </div>
+                            <div class="col-5 col-md-5">
+                                <input type="tel" class="form-control" id="time" name="time" placeholder="Time">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="offset-md-2 col-md-10">
+                                <button type="submit" class="btn btn-primary">Reserve</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
             </div>
-            <div class="col-7  col-sm-5">
-                <h5>Our Address</h5>
-                <address>
-                    121, Clear Water Bay Road<br>
-                    Clear Water Bay, Kowloon<br>
-                    HONG KONG<br>
-                    <i class="fa fa-phone fa-lg"></i>: +852 1234 5678<br>
-                    <i class="fa fa-fax fa-lg"></i>: +852 8765 4321<br>
-                    <i class="fa fa-envelope fa-lg"></i>: <a href="mailto:confusion@food.net">confusion@food.net</a>
-                </address>
+
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 offset-1 col-sm-2">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Menu</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-7  col-sm-5">
+                    <h5>Our Address</h5>
+                    <address>
+                        121, Clear Water Bay Road<br>
+                        Clear Water Bay, Kowloon<br>
+                        HONG KONG<br>
+                        <i class="fa fa-phone fa-lg"></i>: +852 1234 5678<br>
+                        <i class="fa fa-fax fa-lg"></i>: +852 8765 4321<br>
+                        <i class="fa fa-envelope fa-lg"></i>: <a href="mailto:confusion@food.net">confusion@food.net</a>
+                    </address>
+                </div>
+                <div class="col-12 col-sm-4 align-self-center">
+                    <div class="text-center">
+                        <a class="btn btn-social-icon btn-google" href="http://google.com/+"><i
+                                class="fa fa-google-plus fa-lg"></i></a>
+                        <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i
+                                class="fa fa-facebook fa-lg"></i></a>
+                        <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i
+                                class="fa fa-linkedin fa-lg"></i></a>
+                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i
+                                class="fa fa-twitter fa-lg"></i></a>
+                        <a class="btn btn-social-icon btn-google" href="http://youtube.com/"><i
+                                class="fa fa-youtube fa-lg"></i></a>
+                        <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o fa-lg"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="col-12 col-sm-4 align-self-center">
-                <div class="text-center">
-                    <a class="btn btn-social-icon btn-google" href="http://google.com/+"><i class="fa fa-google-plus fa-lg"></i></a>
-                    <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook fa-lg"></i></a>
-                    <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin fa-lg"></i></a>
-                    <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter fa-lg"></i></a>
-                    <a class="btn btn-social-icon btn-google" href="http://youtube.com/"><i class="fa fa-youtube fa-lg"></i></a>
-                    <a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o fa-lg"></i></a>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <p>© Copyright 2018 Ristorante Con Fusion</p>
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-auto">
-                <p>© Copyright 2018 Ristorante Con Fusion</p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- jQuery first, then Popper.js, then Bootstrap JS. -->
-<script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-<script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    </footer>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
