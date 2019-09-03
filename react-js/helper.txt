@@ -15,3 +15,9 @@ npm install -g less@2.7.2
 //less compilation
 //cd css folder
 lessc styles.less styles.css
+//sass
+npm install --save-dev node-sass@4.9.0
+
+
+//after adjusting package.json
+npm run scss
