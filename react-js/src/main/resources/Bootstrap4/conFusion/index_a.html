@@ -1,256 +1,195 @@
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <title>Ristorante Con Fusion</title>
-    <!-- Required meta tags always come first -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Home</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="node_modules/bootstrap-social/bootstrap-social.css">
-    <link rel="stylesheet" href="css/styles.css">
+   <link rel="stylesheet" type="text/css" href="font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="C:\Users\Mubasher\Desktop\Hvk3LS0HEei1swqHfVFp2A_1fd677102d0711e8a11f3f5f282cfd8b_aboutus.html\bootstrap-social-gh-pages\bootstrap-social-gh-pages\bootstrap-social.css">
+    
 </head>
-
 <body>
-    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+		<nav class="navbar navbar-dark navbar-expand-sm bg-primary fixed-top">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand mr-auto" href="#">
-                <img src="./img/logo.png" height="30" width="41" />
-            </a>
-            <div class="collapse navbar-collapse" id="Navbar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">
-                            <span class="fa fa-home fa-lg"></span> Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./aboutus.html">
-                            <span class="fa fa-info fa-lg"></span> About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span class="fa fa-list fa-lg"></span> Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./contactus.html">
-                            <span class="fa fa-address-card fa-lg"></span> Contact</a>
-                    </li>
-                </ul>
-            </div>
+           <a class="navbar-brand" href="#"><img src="img\logo.png" width="41px" height="30px"></a>
+           <div class="collapse navbar-collapse" id="Navbar">
+               <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-home fa-lg"></span> Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./aboutus.html"><span class="fa fa-info fa-lg"></span> About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-list fa-lg"></span> Menu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-address-card fa-lg"></span> Contact</a></li>
+                </ul> 
+                <span class="navbar-text">
+                  <a data-toggle="modal" data-target="#loginModel">
+                    <span class="fa fa-ssign-in"></span>Login
+                  </a>
+                </span>           
+           </div>
         </div>
     </nav>
+
+    <div id="loginModel" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg" role="content">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Login</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
     <header class="jumbotron">
         <div class="container">
             <div class="row row-header">
-                <div class="col-md-6 col-sm-6">
+                <div class="col-12 col-sm-6">
                     <h1>Ristorante con Fusion</h1>
-                    <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking
-                        creations will tickle your culinary senses!</p>
+                    <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
                 </div>
-                <div class="col-md-3 col-sm align-self-center">
-                    <img src="./img/logo.png" class="img-fluid" alt="logo" />
+                <div class="col-12 col-sm">
+                	<img src="img\logo.png" class="img-fluid" width="150px">
                 </div>
-                <div class="col-md-3 col-sm align-self-center">
-                    <a href="#reserveTable" role="button" class="btn btn-warning btn-block">Reserve Table</a>
+                <div class="col-12 col-sm">
+                	<div class="Reserve">
+    <!-- Button HTML (to Trigger Modal) -->
+    <a href="#" class="btn  btn-warning">Reserve Table</a>
+     <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+              aria-hidden="true">&times;</button>
+          </div>
+           <div class="modal-body">
+             <table class="table w-50" style="text-align:center; margin-left: 300px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" class="bg-warning" style="text-align: left; font-size: 20px;">Reserva a Table</th>
+    </tr>
+  </thead>
+  <tbody class="border border-secondary">
+    <tr>
+      <th scope="row">Number of Guests
+         <input type="radio" class="ml-3">1
+         <input type="radio" class="ml-3">2
+         <input type="radio" class="ml-3">3
+         <input type="radio" class="ml-3">4
+         <input type="radio" class="ml-3">5
+         <input type="radio" class="ml-3">6
+      </th>
+    </tr>
+    <tr>
+      <th>Section
+        <button class="btn btn-success">Non-Smoking</button>
+        <button class="btn btn-danger">Smoking</button>
+      </th>
+    </tr>
+    <tr>
+      <th scope="row" style="padding-left: 125px;">Date and Time
+        <input type="textbox" placeholder="Date" class="ml-3">
+        <input type="textbox" placeholder="Time" class="ml-3">
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Reserve</button>
+      </th>
+    </tr>
+  </tbody>
+</table>
+
+
+
+           </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <div class="row row-content align-items-center">
-            <div class="col-12 order-sm-last col-sm-4 col-md-3">
-                <h3>Our Lipsmacking Culinary Creations</h3>
-            </div>
-            <div class="col order-sm-first col-sm col-md">
-                <div class="media">
-                    <img class="d-flex mr-3" src="./img/uthappizza.png" alt="Uthappizza" />
-                    <div class="media-body">
-                        <h2 class="mt-0">Uthappizza
-                            <span class="badge badge-danger">HOT</span>
-                            <span class="badge badge-pill badge-secondary">$4.99</span>
-                        </h2>
-                        <p class="d-none d-sm-block">A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives,
-                            ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col col-sm oder-sm-1 col-md">
+    	<div class="media">
+    		<img class="d-flex mr-3 img-thumbnail align-self-center" src="img\uthappizza.png">
+    		<div class="media-body">
+    			<h2 class="mt-0">Uthappizza
+    				<span class="badge badge-danger">HOT</span>
+    				<span class="badge badge-pill badge-secondary">$4.99</span>
+    			</h2>
+    			<p class="d-none d-sm-block">A unique combination of Indian Uthappam (pancake) and Italian pizza, topped with Cerignola olives, ripe vine cherry tomatoes, Vidalia onion, Guntur chillies and Buffalo Paneer.</p>
+    		</div>
+    	</div>
+    </div>
 
-
-        <div class="row row-content align-items-center">
-            <div class="col-12 col-sm-4 col-md-3">
-                <h3>This Month's Promotions</h3>
+    <div class="row">
+    	<div class="col"><hr>
+    		<div class="container">
+    	 <div class="col col-sm order-sm-1 col-md">
+    	<div class="media">
+    		<div class="media-body text-center">
+    			<h2 class="mt-5">Weekend Grand Buffet 
+                    <span class="badge badge-danger">NEW</span>
+                </h2>
+                <p class="d-none d-sm-block">Featuring mouthwatering combinations with a choice of five different salades, six enticing appetizers, six main entrees and five choicest deserts.Free flowing bubbly and soft drinks.All for just $19.99 per person</p>
             </div>
-            <div class="col col-sm col-md">
-                <div class="media">
-                    <div class="media-body">
-                        <h2>Weekend Grand Buffet
-                            <span class="badge badge-danger">NEW</span>
-                        </h2>
-                        <p class="d-none d-sm-block">Featuring mouthwatering combinations with a choice of five different salads, six enticing appetizers,
-                            six main entrees and five choicest desserts. Free flowing bubbly and soft drinks. All for just
-                            $19.99 per person </p>
-                    </div>
-                    <img class="d-flex ml-3" src="./img/buffet.png" alt="Buffet" />
-                </div>
-
+            <div class="float-right mt-5">
+                <img  src="img\buffet.png">
             </div>
-        </div>
+    		</div>
+    	</div>
+    	</div>
+    	</div>
+    	</div>
+    </div>
 
-        <div class="row row-content align-items-center">
-            <div class="col-12 order-sm-last col-sm-4 col-md-3">
-                <h3>Meet our Culinary Specialists</h3>
-            </div>
-            <div class="col order-sm-first col-sm col-md">
-                <div class="media">
-                    <img class="d-flex mr-3 img-thumbnail align-self-center" src="./img/alberto.png" alt="alberto" />
-                    <div class="media-body">
-                        <h2>Alberto Somayya</h2>
-                        <h4>Executive Chef</h4>
-                        <p class="d-none d-sm-block">Award winning three-star Michelin chef with wide International experience having worked closely with
-                            whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion
-                            experiences. </p>
-                    </div>
-                </div>
-
+    <div class="row">
+        <div class="col"><hr>
+            <div class="container">
+                 <div class="col col-sm oder-sm-1 col-md">
+        <div class="media">
+            <img class="d-flex mr-3 img-thumbnail align-self-center" src="img\alberto.png">
+            <div class="media-body">
+                <h2 class="mt-0">alberto Somayya
+                    <h3 class="mt-0">Executive Chef</h3>
+                </h2>
+                <p class="d-none d-sm-block">Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mounthwatering indo-italian fusion experiences</p>
             </div>
         </div>
-
-        <div class="row row-content">
-            <div class="col-md-8 offset-md-2">
-                <div class="card" id="reserveTable">
-                    <h3 class="card-header bg-warning text-white">Reserve a Table</h3>
-                    <div class="card-body">
-                        <form>
-                            <div class="form-group row">
-                                <label for="numofguests" class="col-md-2 col-form-label">Number Of Guests</label>
-                                <div class="col-md-10">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                        <label class="form-check-label" for="inlineRadio1">1</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                        <label class="form-check-label" for="inlineRadio2">2</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                        <label class="form-check-label" for="inlineRadio3">3</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
-                                        <label class="form-check-label" for="inlineRadio4">4</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
-                                        <label class="form-check-label" for="inlineRadio5">5</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="option6">
-                                        <label class="form-check-label" for="inlineRadio6">6</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="date" class="col-md-2 col-form-label">Date and Time</label>
-                                <div class="col-6 col-md-5">
-                                    <input type="text" class="form-control" id="date" name="date" placeholder="Date" />
-                                </div>
-                                <div class="col-6 col-md-5">
-                                    <input type="text" class="form-control" id="time" name="time" placeholder="Time" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="offset-md-2 col-md-10">
-                                    <button class="btn btn-primary" type="submit">Reserve</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    </div>
             </div>
         </div>
     </div>
 
+    <br><br>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-4 offset-1 col-sm-2">
-                    <h5>Links</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#">Home</a>
-                        </li>
-                        <li>
-                            <a href="./aboutus.html">About</a>
-                        </li>
-                        <li>
-                            <a href="#">Menu</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-7 col-sm-5">
-                    <h5>Our Address</h5>
-                    <address>
-                        121, Clear Water Bay Road
-                        <br> Clear Water Bay, Kowloon
-                        <br> HONG KONG
-                        <br>
-                        <i class="fa fa-phone fa-lg"></i>: +852 1234 5678
-                        <br>
-                        <i class="fa fa-fax fa-lg"></i>: +852 8765 4321
-                        <br>
-                        <i class="fa fa-envelope fa-lg"></i>:
-                        <a href="mailto:confusion@food.net">confusion@food.net</a>
-                    </address>
-                </div>
-                <div class="col-12 col-sm-4 align-self-center">
-                    <div class="text-center">
-                        <a class="btn btn-social-icon btn-google" href="http://google.com/+">
-                            <i class="fa fa-google-plus"></i>
-                        </a>
-                        <a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id=">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                        <a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/">
-                            <i class="fa fa-linkedin"></i>
-                        </a>
-                        <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a class="btn btn-social-icon btn-google" href="http://youtube.com/">
-                            <i class="fa fa-youtube"></i>
-                        </a>
-                        <a class="btn btn-social-icon" href="mailto:">
-                            <i class="fa fa-envelope-o"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-auto">
-                    <p>© Copyright 2018 Ristorante Con Fusion</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS. -->
-    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f70b1f5b8c.js"></script>
+    <script>
+    </script>
+
+    <script type="text/javascript">
+$(document).ready(function(){<!-- www .  ja v  a  2s.com-->
+  $(".btn").click(function(){
+    $("#myModal").modal('show');
+  });
+});
+</script>
+<style type="text/css">
+.bs-example {
+  margin: 20px;
+}
+</style>
 </body>
-
 </html>
+
+
