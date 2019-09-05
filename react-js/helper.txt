@@ -21,3 +21,6 @@ npm install --save-dev node-sass@4.9.0
 
 //after adjusting package.json
 npm run scss
+
+//watching for changing in files
+npm install --save-dev onchange@latest parallelshell@3.0.1
