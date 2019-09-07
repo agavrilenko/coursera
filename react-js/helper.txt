@@ -24,9 +24,18 @@ npm run scss
 
 //watching for changing in files
 npm install --save-dev onchange@latest parallelshell@3.0.1
+//minification and uglyfication
 npm install --save-dev rimraf@2.6.2
 npm -g install copyfiles@2.0.0
 npm -g install imagemin-cli@3.0.0
 npm install -g imagemin-cli@latest --unsafe-perm=true --allow-root
 npm install --save-dev usemin-cli@0.5.1 cssmin@0.4.3 uglifyjs@2.4.11 htmlmin@0.0.7
+//run builds
 npm run build
+//grunt
+npm install -g grunt-cli@1.2.0
+npm install grunt@1.0.2 --save-dev
+npm install --save-dev grunt-sass@2.1.0
+npm install --save-dev time-grunt@1.4.0 jit-grunt@0.10.0
+npm install --save-dev grunt-contrib-watch@1.0.0
+npm install --save-dev grunt-browser-sync@2.2.0
