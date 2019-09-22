@@ -67,3 +67,7 @@ gulp
 /////////////React course
 npm init
 npm install lite-server --save-dev
+//install yarn from yarnpkg.com
+//create react application
+npm install -g create-react-app@latest
+create-react-app confusion
