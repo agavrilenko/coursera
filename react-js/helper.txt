@@ -70,4 +70,15 @@ npm install lite-server --save-dev
 //install yarn from yarnpkg.com
 //create react application
 npm install -g create-react-app@latest
+npm install -g create-react-app@1.5.2
+
+create-react-app --help
 create-react-app confusion
+
+yarn start
+//configure react to use bootstrap
+
+yarn add bootstrap@4.0.0
+yarn add reactstrap@5.0.0 react-popper@0.9.2
+
+
