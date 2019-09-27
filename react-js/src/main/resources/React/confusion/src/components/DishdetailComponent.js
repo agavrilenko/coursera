@@ -14,16 +14,18 @@ class Dishdetail extends Component {
         const dish = this.props.dish;
         if(dish != null){
         return (
-        <div className="row">
-            <div className = "col-12 col-md-5 m-1">
-                {this.renderDish(dish)}
-            </div>
-            <div className="col-12 col-md-5 m-1">
-                <h4>Comments</h4>
-                <ul className="list-unstyled">
-                {this.renderComments(dish)}
-                </ul>
-            </div>
+        <div className="container">
+            <div className="row">
+                    <div className = "col-12 col-md-5 m-1">
+                        {this.renderDish(dish)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        <h4>Comments</h4>
+                        <ul className="list-unstyled">
+                        {this.renderComments(dish)}
+                        </ul>
+                    </div>
+                </div>
             </div>
         );
         }
@@ -50,7 +52,7 @@ class Dishdetail extends Component {
 
     }
     renderComments(dish){
-
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
     if(dish.comments == null || dish.comments.length < 1){
         return(
             <div></div>
@@ -60,7 +62,7 @@ class Dishdetail extends Component {
     return(dish.comments.map((post) =>
                                <div key={post.id} className="m-1">
                                    <li >{post.comment} </li>
-                                   <li >--{post.author},  {post.date} </li>
+                                   <li >--{post.author},  {new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short',day:'2-digit'}).format(new Date(Date.parse(post.date)))} </li>
                                </div>
 
                            ));
