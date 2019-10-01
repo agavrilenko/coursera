@@ -34,9 +34,7 @@ function About(props) {
 
     const leaders = props.leaders.map((leader) => {
         return (
-        <div className="col-12">
             <RenderLeader leader={leader}/>
-            </div>
         );
     });
 
