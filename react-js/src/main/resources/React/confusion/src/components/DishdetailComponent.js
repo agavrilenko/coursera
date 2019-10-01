@@ -22,12 +22,9 @@ import {Link } from 'react-router-dom';
 
             <div className="row">
                         <RenderDish dish = {props.dish}/>
-                        <div className="col-12 col-md-5 m-1">
-                        <h4>Comments</h4>
-                        <ul className="list-unstyled">
+
                         <RenderComments comments={props.comments} />
-                        </ul>
-                    </div>
+
                 </div>
             </div>
         );
@@ -63,13 +60,22 @@ import {Link } from 'react-router-dom';
         );
     }
 
-    return(comments.map((post) =>
+    const commts = comments.map((post) =>
                                <div key={post.id} className="m-1">
                                    <li >{post.comment} </li>
                                    <li >--{post.author},  {new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short',day:'2-digit'}).format(new Date(Date.parse(post.date)))} </li>
                                </div>
 
-                           ));
+                           );
+
+    return(
+        <div className="col-12 col-md-5 m-1">
+            <h4>Comments</h4>
+            <ul className="list-unstyled">
+                {commts}
+            </ul>
+        </div>
+    );
 
     }
 
