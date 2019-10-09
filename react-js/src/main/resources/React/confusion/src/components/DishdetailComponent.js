@@ -1,6 +1,11 @@
 import React from 'react';
-import {Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import {Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem,
+Navbar, NavbarBrand, Nav, NavbarToggler, NavItem,Button, Modal, ModalHeader, ModalBody,Form,
+FormGroup, Label,Input} from 'reactstrap';
+
 import {Link } from 'react-router-dom';
+import {Control, LocalForm, Errors} from 'react-redux-form';
+import CommentForm from './CommentFormComponent';
 
     const DishDetail = (props)=>{
         console.log('Dishdetail  component did render is invoked');
@@ -24,9 +29,10 @@ import {Link } from 'react-router-dom';
                         <RenderDish dish = {props.dish}/>
 
                         <RenderComments comments={props.comments} />
-
+                        <CommentForm />
                 </div>
             </div>
+
         );
         }
         else {
@@ -74,6 +80,11 @@ import {Link } from 'react-router-dom';
             <ul className="list-unstyled">
                 {commts}
             </ul>
+             <Nav className="ml-auto" navbar>
+                <NavItem>
+                    <Button outline  ><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
+                </NavItem>
+            </Nav>
         </div>
     );
 
