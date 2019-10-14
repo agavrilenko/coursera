@@ -36,11 +36,11 @@ const minLength = (len) => (val) => val && (val.length >= len);
                     </div>
 
             <div className="row">
-                        <RenderDish dish = {props.dish}/>
+                        <RenderDish dish = {this.props.dish}/>
 
-                        <RenderComments comments={props.comments}
-                        addComment={props.addComment}
-                        dishId = {props.dish.id}                     />
+                        <RenderComments comments={this.props.comments}
+                        addComment={this.props.addComment}
+                        dishId = {this.props.dish.id}                     />
 
                         </div>
                     </div>
@@ -134,13 +134,13 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                  <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                                     <Row className="form-group">
                                     <Col md={{size: 2, offset: 0}}>
-                                  <Label htmlFor="contactType">  Raiting</Label>
+                                  <Label htmlFor="rating">  Raiting</Label>
                                     </Col>
                                     </Row>
                                     <Row className="form-group">
                                         <Col md={{size: 12, offset: 0}}>
-                                            <Control.select model=".contactType" name="contactType"
-                                            className="form-control" id="contactType">
+                                            <Control.select model=".rating" name="rating"
+                                            className="form-control" id="rating">
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
@@ -151,13 +151,13 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                     </Row>
                                     <Row className="form-group">
                                     <Col md={{size: 5, offset: 0}}>
-                                        <Label htmlFor="firstname" >Your Name</Label>
+                                        <Label htmlFor="author" >Your Name</Label>
                                     </Col>
                                     </Row>
 
                                     <Row className="form-group">
                                         <Col md={12}>
-                                            <Control.text  model=".firstname" id="firstname" name="firstname"
+                                            <Control.text  model=".author" id="author" name="author"
                                                 placeholder="Your Name"
                                                 className="form-control"
                                                 validators={{
@@ -168,7 +168,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                                 />
                                                 <Errors
                                                     className="text-danger"
-                                                    model = ".firstname"
+                                                    model = ".author"
                                                     show="touched"
                                                     messages ={{
                                                         required: 'Required;',
@@ -180,12 +180,12 @@ const minLength = (len) => (val) => val && (val.length >= len);
                                     </Row>
                                     <Row className="form-group">
                                     <Col md={{size: 5, offset: 0}}>
-                                        <Label htmlFor="message" >Comment</Label>
+                                        <Label htmlFor="comment" >Comment</Label>
                                     </Col>
                                     </Row>
                                     <Row className="form-group">
                                         <Col md={12}>
-                                            <Control.textarea model=".message" id="message" name="message"
+                                            <Control.textarea model=".comment" id="comment" name="comment"
                                                 rows="6"
                                                 className="form-control"/>
                                         </Col>
