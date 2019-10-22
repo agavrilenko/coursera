@@ -98,4 +98,7 @@ yarn add redux-logger@3.0.6
 
 //json server
 npm install -g json-server
+//start json server
 json-server --watch db.json -d 2000 -p 3001
+
+yarn add cross-fetch@2.1.0
