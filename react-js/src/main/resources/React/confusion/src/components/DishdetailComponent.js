@@ -60,7 +60,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                         <RenderDish dish = {this.props.dish}/>
 
                         <RenderComments comments={this.props.comments}
-                        addComment={this.props.addComment}
+                         postComment={this.props.postComment}
                         dishId = {this.props.dish.id}                     />
 
                         </div>
@@ -94,7 +94,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
         );
 
     }
-   function RenderComments({comments, addComment, dishId}){
+   function RenderComments({comments, postComment, dishId}) {
     if(comments == null || comments.length < 1){
         return(
             <div></div>
@@ -115,7 +115,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
             <ul className="list-unstyled">
                 {commts}
             </ul>
-             <CommentForm dishId={dishId} addComment={addComment} />
+             <CommentForm dishId={dishId} postComment={postComment} />
         </div>
     );
 
@@ -139,7 +139,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
      handleSubmit(values) {
             this.updateCommentFormState();
-            this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+            this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
         }
     render(){
         return(
