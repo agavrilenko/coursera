@@ -148,11 +148,11 @@ export const leadersLoading = () => ({
     type: ActionTypes.LEADERS_LOADING
 });
 
-export const fetchDishes = () => (dispatch) => {
+export const fetchLeaders = () => (dispatch) => {
 
-    dispatch(dishesLoading(true));
+    dispatch(leadersLoading(true));
 
-    return fetch(baseUrl + 'dishes')
+    return fetch(baseUrl + 'leaders')
     .then(response => {
         if (response.ok) {
           return response;
@@ -167,11 +167,16 @@ export const fetchDishes = () => (dispatch) => {
             throw errmess;
       })
     .then(response => response.json())
-    .then(dishes => dispatch(addDishes(dishes)))
-    .catch(error => dispatch(dishesFailed(error.message)));
+    .then(leaders => dispatch(addLeaders(leaders)))
+    .catch(error => dispatch(leadersFailed(error.message)));
 };
 
 export const leadersFailed = (errmess) => ({
-    type: ActionTypes.DISHES_FAILED,
+    type: ActionTypes.LEADERS_FAILED,
     payload: errmess
+});
+
+export const addLeaders = (leaders) => ({
+    type: ActionTypes.ADD_LEADERS,
+    payload: leaders
 });
