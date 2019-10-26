@@ -108,8 +108,8 @@ const minLength = (len) => (val) => val && (val.length >= len);
     }
 
     const commts = comments.map((post) =>
-                            <Fade in>
-                               <div key={post.id} className="m-1">
+                            <Fade key={post.id} in>
+                               <div  className="m-1">
                                    <li >{post.comment} </li>
                                    <li >--{post.author},  {new Intl.DateTimeFormat('en-US',{year:'numeric', month:'short',day:'2-digit'}).format(new Date(Date.parse(post.date)))} </li>
                                </div>
