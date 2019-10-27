@@ -15,9 +15,6 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
     class DishDetail extends Component{
 
-    constructor(props){
-        super(props);
-    }
 
     render(){
 
