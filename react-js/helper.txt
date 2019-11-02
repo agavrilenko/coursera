@@ -110,3 +110,7 @@ yarn add prop-types@15.6.0
 
 //build application
 npm run build
+
+//react native
+yarn global add create-react-native-app@latest
+create-react-native-app confusion
