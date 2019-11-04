@@ -110,3 +110,11 @@ yarn add prop-types@15.6.0
 
 //build application
 npm run build
+
+// React native
+// Node.js to 10.x version.
+yarn global add create-react-native-app@latest
+create-react-native-app confusion
+cd confusion
+yarn start
+yarn add react-native-elements@latest //1.2.7
