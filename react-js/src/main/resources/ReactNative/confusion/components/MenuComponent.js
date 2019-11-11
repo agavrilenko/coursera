@@ -17,31 +17,36 @@ class Menu extends Component{
         title: 'Menu'
     };
 
-    const renderMenuItem = ({item, index}) => {
+
+
+    render(){
+     const renderMenuItem = ({item, index}) => {
+            return (
+                <ListItem
+                    key={index}
+                    title = {item.name}
+                    subtitle = {item.description}
+                    hideChevron = {true}
+                    onPress={() => navigate('Dishdetail',{dishId: item.id})}
+                    leftAvatar = {{source: require('./images/uthappizza.png')}}
+                />
+
+            );
+        }
+        const {navigate} = this.props.navigation;
+
         return (
-            <ListItem
-                key={index}
-                title = {item.name}
-                subtitle = {item.description}
-                hideChevron = {true}
-                onPress={() => props.onPress(item.id)}
-                leftAvatar = {{source: require('./images/uthappizza.png')}}
-            />
+                <FlatList
+                    data={this.state.dishes}
+                    renderItem = {renderMenuItem}
+                    keyExtractor={item => item.id.toString()}
+                />
 
-        );
 
+
+            );
     }
 
-    return (
-        <FlatList
-            data={props.dishes}
-            renderItem = {renderMenuItem}
-            keyExtractor={item => item.id.toString()}
-        />
-
-
-
-    );
 
 }
 
