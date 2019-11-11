@@ -118,3 +118,4 @@ create-react-native-app confusion
 cd confusion
 yarn start
 yarn add react-native-elements@latest //1.2.7
+yarn add react-navigation@2.0.1
