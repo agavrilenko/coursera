@@ -16,9 +16,6 @@ class Menu extends Component{
     static navigationOptions = {
         title: 'Menu'
     };
-
-
-
     render(){
      const renderMenuItem = ({item, index}) => {
             return (
@@ -41,13 +38,8 @@ class Menu extends Component{
                     renderItem = {renderMenuItem}
                     keyExtractor={item => item.id.toString()}
                 />
-
-
-
             );
     }
-
-
 }
 
 export default Menu;
