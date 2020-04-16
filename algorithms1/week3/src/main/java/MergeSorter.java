@@ -5,6 +5,7 @@ public class MergeSorter {
     private long cnt = 0;
 
     public void sort(Comparable[] a) {
+        //aux is important to create it here. otherwise a big cost for re-creation
         Comparable[] aux = new Comparable[a.length];
         sort(a, aux, 0, a.length - 1);
         System.out.println("count " + cnt);
