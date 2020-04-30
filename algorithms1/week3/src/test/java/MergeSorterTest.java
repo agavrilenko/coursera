@@ -2,9 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by trash on 14-Nov-16.
@@ -72,11 +69,11 @@ public class MergeSorterTest {
         long delta = System.currentTimeMillis() - now;
         Assert.assertArrayEquals(afterSort, toSort);
         System.out.println("Took " + (delta / 1000.0));
-        /*100000000
+        /*100_000_000
         count 2532916619
         Took 74.293*/
 
-        /*500000000
+        /*500_000_000
         count 13821380820
         Took 412.456*/
     }
